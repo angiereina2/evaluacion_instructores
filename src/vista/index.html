@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Plantilla Seguimiento</title>
+    <link rel="stylesheet" href="https://bootswatch.com/5/minty/bootstrap.min.css">
+    <link rel="stylesheet" href="./css/style.css">
+</head>
+<body>
+    <header>
+        <h1 class="titulo">Evaluación de desempeño laboral 2023</h1>
+    </header>
+        <p class="text-center" style="margin-top: 40px;">
+            <div class="drag-area">
+                <h2>Arrastre y suelte su archivo</h2>
+                <span>O</span>
+                <button>Seleccione el archivo</button>
+                <input type="file" id="txtarchivo" hidden multiple>
+            </div>
+        </p>
+    <div id="preview"></div>
+    <div class="container">
+        <form action="">
+        <div class="row" id="Plantilla">
+          <!--  <label>Versión:</label>
+            <label>Versión:</label>
+            <input list="versiones">
+            <datalist id="versiones">
+                <option value="hola"></option>
+                <option value="hi"></option>
+                <option value="bonjour"></option>
+                <option value="merhaba"></option>
+            </datalist>
+            <p></p>
+            <label>Codigo:</label>
+            <select class="form-select">
+                <option>1</option>
+                <option>2</option>
+                <option>3</option>
+                <option>4</option>
+              </select>
+              <p></p>
+            <div class="row">
+                    <label for="date" class="form-label">Fecha de evaluación:</label>
+                    <input type="date" name="txtfecha">
+            </div>
+              <p></p>
+              <label>Periodo:</label>
+            <select class="form-select">
+                <option>1</option>
+                <option>2</option>
+                <option>3</option>
+                <option>4</option>
+              </select>
+              <p></p>
+              <label>Tipo de reunion:</label>
+              <select class="form-select">
+                  <option>1</option>
+                  <option>2</option>
+                  <option>3</option>
+                  <option>4</option>
+                </select>
+                <p></p> -->
+                <label>Profesionales evaluados:</label>
+            <select class="form-select">
+                <option>Instructores</option>
+                <option>Profesionales Tecnicos</option>
+              </select>
+        </div>
+        <p></p>
+        <button type="submit" id="btnguardar" class="btn btn-success">&nbsp; Guardar</button>
+        &nbsp; &nbsp;
+        <button type="submit" id= "btnenviarc" class="btn btn-danger">&nbsp; Enviar</button>
+    </form>
+    </div>
+</body>
+</html>
