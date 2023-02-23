@@ -10,10 +10,17 @@ router.get('/',(req, res)=>{
             throw error;
         } else 
         {
-            res.send(results);
+            res.send('index', {results:results});
         }  
     })       
 });
 
+//Ruta registros
+router.get('/create', (req,res)=>{
+    res.render('create');
+})
+
+const crud = require ('./controlador/crud');
+router.post('/InicioL', crud.InicioL)
 
 module.exports = router;
