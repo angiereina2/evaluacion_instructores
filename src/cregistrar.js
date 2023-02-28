@@ -35,6 +35,36 @@ window.onload = function(){
 //     await ipcRenderer.invoke('get')   
 //  }
 
+window.ipcRender.invoke('getCarreras').then((result) => {
+   let { ProE_Documento, ProE_Nombre } = result;
+
+   ProE_Documento = ProE_Documento.replace(/(^_)|(_$)/g, '');
+   ProE_Documento = ProE_Documento.split('_');
+   ProE_Nombre = ProE_Nombre.replace(/(^_)|(_$)/g, '');
+   ProE_Nombre = ProE_Nombre.split('_');
+
+   let carreras = [];
+
+   for (let i = 0; i < ProE_Documento.length; i++) {
+       carreras.push({
+           'ProE_Documento': ProE_Documento[i],
+           'ProE_Nombre': ProE_Nombre[i]
+       });
+   }
+
+   let texto = '';
+
+   for (let i = 0; i < carreras.length; i++) {
+       texto +=
+           `
+           <option value="${carreras[i].ProE_Documento}">${carreras[i].ProE_Nombre}</option>
+           `;
+   }
+
+   select.innerHTML += texto;
+});
+
+
 async function renderCrearinstructor() {
    const obj = {
       id: parseInt(id.value),
@@ -65,41 +95,3 @@ async function renderCrearinstructor() {
     })
 }
 
-// window.ipcRender.invoke('getProducts','products').then((result) => {
-//    let { ProE_Documento, ProE_Nombre } = result;
-
-//    let carreras = [];
-
-//    for (let i = 0; i < ProE_Documento.length; i++) {
-//        carreras.push({
-//            'ProE_Documento': ProE_Documento[i],
-//            'ProE_Nombre': ProE_Nombre[i]
-//        });
-//    }
-
-//    let texto = '';
-
-//    for (let i = 0; i < carreras.length; i++) {
-//        if (localStorage.getItem('txtprofev')) {
-//            if (carreras[i].ProE_Documento == localStorage.getItem('txtprofev')) {
-//                texto +=
-//                    `
-//                    <option value="${carreras[i].ProE_Documento}" selected>${carreras[i].ProE_Nombre}</option>
-//                    `;
-//            }
-//          }
-//          select.innerHTML += texto;
-//       }
-//    });
-
-// ipcRenderer.on('products', (event, results) => {
-//    //let template = ""
-//    const list = results
-//       for (let i = 0; i < list.length; i++) { 
-//          `<option value="">${ list[i].ProE_Documento}</option>`
-                                     
-//    };
-
-//    select.innerHTML = template 
-
-// });

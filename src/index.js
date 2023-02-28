@@ -14,6 +14,9 @@ let mainWindow;
 let ventlogin;
 let ventanaActualizar;
 let ventanaCrear;
+let ventanaCrearProEV;
+let ventanaCrearCompromisos;
+let ventanaCrearU;
 
 function ventanaindex(){
     mainWindow = new BrowserWindow({
@@ -21,7 +24,9 @@ function ventanaindex(){
         height: 1000,
         title: 'Inicio',
         webPreferences:{
-        preload: path.join(__dirname, 'preload.js'),
+            // contextIsolation : false,
+            nodeIntegration : true, 
+            preload: path.join(__dirname, 'preload.js'),
     }
     }) 
     mainWindow.webContents.openDevTools()
@@ -112,18 +117,32 @@ ipcMain.handle('crear', (event, obj) => {
     crearInstructor(obj)
   });
 
-function getProducts()
-  {
-    
-    connection.query('SELECT ProE_Documento, ProE_Nombre FROM profesionalevaluador', (error, results, fields) => {
-      if (error){
+/*  electronIpcMain.on('consultCarreras', (event) => {
+    let idCarrera = '', nombreCarrera = '';
+  
+    db.query('SELECT * FROM carreras', (error, results, fields) => {
+      if (error) {
         console.log(error);
       }
-      
-      win.webContents.send('products', results)
-    });  
-  }
-
+  
+      if (results.length > 0) {
+        for (let i = 0; i < results.length; i++) {
+          idCarrera += results[i].id_carrera + '_';
+          nombreCarrera += results[i].nombre_carrera + '_';
+        }
+  
+        store.set('idCarrera', idCarrera);
+        store.set('nombreCarrera', nombreCarrera);
+      }
+    });
+  });
+  
+  electronIpcMain.handle('getCarreras', (event) => {
+    const data = { idCarrera: store.get('idCarrera'), nombreCarrera: store.get('nombreCarrera') };
+  
+    return data;
+  });
+*/
 function crearInstructor(obj)
   {
     const sql = "INSERT INTO profesionalevaluado ('Pro_Documento', 'Pro_Nombre', 'Pro_Apellido', 'Pro_TipoId', 'Pro_Rol', 'Pro_Correo', 'Pro_Codigo', 'Pro_Grado', 'Pro_Dependencia', 'ProfesionalEvaluadorProE_Documento') VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";  
@@ -134,6 +153,62 @@ function crearInstructor(obj)
    });
   }
 
+// ventana crear profesiosanles evaluadores
+function VcrearProevaluador(){
+    ventanaCrearProEV=new BrowserWindow({
+        width: 600,
+        height:600,
+        title: 'Registrar profesionales evaluadores',
+        webPreferences: {
+            preload: path.join(__dirname, 'controlador/crearproevaluador.js'),
+        }
+    })
+    ventanaCrearProEV.setMenu(null);
+    ventanaCrearProEV.loadFile('src/vista/registrar-proevaluador.html')
+}
+
+// ventana compromisos funcionales
+function VcrearCompromisos(){
+    ventanaCrearCompromisos=new BrowserWindow({
+        width: 600,
+        height:600,
+        title: 'Registrar compromisos',
+        webPreferences: {
+            preload: path.join(__dirname, 'controlador/crearcompromisos.js'),
+        }
+    })
+    ventanaCrearCompromisos.setMenu(null);
+    ventanaCrearCompromisos.loadFile('src/vista/registrar-compromisos.html')
+}
+
+//ventana crear usuarios
+function VcrearUsuarios(){
+    ventanaCrearU=new BrowserWindow({
+        width: 600,
+        height:600,
+        title: 'Registrar Usuarios',
+        webPreferences: {
+            preload: path.join(__dirname, 'controlador/crearusuarioc.js'),
+        }
+    })
+    ventanaCrearU.webContents.openDevTools();
+    ventanaCrearU.setMenu(null);
+    ventanaCrearU.loadFile('src/vista/registrar-usuarios.html')
+}
+
+ipcMain.handle('crearU', (event, obj) => {
+    crearUsuarios(obj)
+  });
+
+function crearUsuarios(obj)
+  {
+    const sql = "INSERT INTO usuarios SET ?";  
+    connection.query(sql, obj, (error, results, fields) => {
+      if(error) {
+         console.log(error);
+      }
+   });
+  }
 
 //funcion para crear la ventana de actualizar
 function Vactualizar(){
@@ -175,6 +250,27 @@ const nuevoMenu=[
                 accelerator: process.platform=='darwin' ? 'command+L': 'Ctrl+L', 
                 click(){
                     Vcrear();
+                }
+            },
+            {
+                label: 'Crear profesionales evaluadores',
+                accelerator: process.platform=='darwin' ? 'command+P': 'Ctrl+P',
+                click(){
+                    VcrearProevaluador();
+                }
+            },
+            {
+                label: 'Crear compromisos',
+                accelerator: process.platform=='darwin' ? 'command+F': 'Ctrl+F',
+                click(){
+                    VcrearCompromisos();
+                }
+            },
+            {
+                label: 'Crear nuevos usuarios',
+                accelerator: process.platform=='darwin' ? 'command+M': 'Ctrl+M',
+                click(){
+                    VcrearUsuarios();
                 }
             },
             {

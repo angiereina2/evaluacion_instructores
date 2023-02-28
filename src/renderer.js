@@ -20,4 +20,20 @@ droparea.addEventListener("drop", async (e)=>{
 });
 
 
+const app = require('electron').remote; 
+const dialog = app.dialog;
+const fs = require('fs');
+                
+document.getElementById('select-file').addEventListener('click',function(){
+    dialog.showOpenDialog(function (fileNames) {
+        if(fileNames === undefined){
+            console.log("No file selected");
+         }//else{
+        // //     document.getElementById("actual-file").value = fileNames[0];
+        // //     readFile(fileNames[0]);
+        // // }
+    }); 
+},false);
+
+
 
