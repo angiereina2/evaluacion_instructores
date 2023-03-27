@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="">
+    <link rel="stylesheet" href="./css/style.css">
+    <title>Registrar</title>
+</head>
+<body>
+    <header>
+      <img alt="Centro para la Industria de la Comunicación Gráfica" height="172px; " id="Header1_headerimg" src="img\logo cenigraf.jpg" style="display: block" width="500px; ">
+        <h1>Crear Nuevos registros de instructores</h1>
+    </header>
+    <form action="">
+        <div class="mb-3 mt-3">
+          <label for="text" class="form-label">Nombres:</label>
+          <input type="text" class="form-control" id="txtninstructor" placeholder="Ingrese los nombres del Instructor" name="txtninstructor">
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Apellidos:</label>
+          <input type="text" class="form-control" id="txtapellidoi" placeholder="Ingrese los apellidos del Instructor" name="txtapellidoi">
+        </div>
+        <div class="mb-3">
+            <label for="text" class="form-label">Tipo de identificacion:</label>
+            <select class="form-select" id="txttipoid">
+                <option>Cedula de Ciudadania</option>
+                <option>Cedua de extranjeria</option>
+                <option>Pasaporte</option>
+              </select>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Numero de identificacion:</label>
+            <input type="number" class="form-control" id="txtdocumentoi" placeholder="Ingrese el numero de documento" name="txtdocumentoi">
+          </div>
+        <div class="mb-3">
+            <label class="form-label">Denominacion del empleo:</label>
+            <input type="text" class="form-control" id="txtroli" placeholder="Ingrese el tipo de empleo" name="txtroli">
+          </div>
+        <div class="mb-3">
+            <label class="form-label">Correo:</label>
+            <input type="email" class="form-control" id="txtcorreoi" placeholder="Ingrese el correo del instructor" name="txtcorreoi">
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Codigo:</label>
+            <input type="number" class="form-control" id="txtcodigoi" placeholder="Ingrese el codigo" name="txtcodigoi">
+          </div>
+        <div class="mb-3">
+            <label class="form-label">Grado:</label>
+            <input type="number" class="form-control" id="txtgradoi" placeholder="Ingrese el grado" name="txtgradoi">
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Dependencia:</label>
+            <input type="text" class="form-control" id="txtdependenciai" placeholder="Ingrese la dependencia" name="txtdependenciai">
+        </div>
+        <div class="mb-3">
+          <label for="text" class="form-label">Profesional evaluador:</label>
+          <input type="number" class="form-control" id="txtprofev" placeholder="Ingrese el documento del profesinal evaluador" name="txtprofev">
+           <select class="form-select" id="txtprofev">
+            <option value="" selected>
+              Seleccionar Profesional evaluador
+            </option>
+            </select>
+        </div> 
+        <script src="../controlador/cregistrar.js"></script>
+        <button type="submit" id="btnregistrar" class="btn btn-primary">Registrar</button>
+      
+      <div class="col-12">
+      <input type="file" class="form-control" name="file" required />
+      </div>
+      <button type="submit">Carga Masiva</button>
+          <table id="synthesetablee" >
+            <thead>
+                <th>Numero identificacion</th>
+                <th>Nombres</th>
+                <th>Apellidos</th>
+                <th>Tipo Id</th>
+                <th>Denominacion del empleo</th>
+                <th>Correo</th>
+                <th>Codigo</th>
+                <th>Grado</th>
+                <th>Dependencia</th>
+                </tr>
+            </thead>
+            <tbody id="synthese-list"> 
+            </tbody>           
+           </table>
+        </div>
+      </div>
+  </form>
+</body>
+</html>

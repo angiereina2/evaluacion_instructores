@@ -6,26 +6,32 @@
 /* .row select:hover{
     color: red;
 } */
+
+h1{
+    color: #00af00;
+}
+
 .titulo{
-    color: white;
+    color: #00af00;
     font-size: 30px;
 }
 .InicioL, h1{
-    color: black;
+    color: #00af00;
     padding: 15px;
 }
 .InicioL, label{
-    color: beige;
+    color: black;
 }
 .InicioL, form{
     margin-bottom: 15px;
-    background: none ;
-    opacity: 0.9;
+    background: #7cd47c;
+    opacity: 5.0;
+    border-radius: 5px;
     /*box-shadow: 0px 2px 2px rgba(0,0,0,0.3);*/
     padding: 30px;
 }
 .InicioL, body{
-    background-color: #0047ab;
+    background-color: white;
 }
 
 .Plantilla, input{
@@ -35,8 +41,9 @@
         box-sizing: border-box;
 }
 
-.drag-area{
+#drop-area{
     border: 4px dashed #585858;
+    opacity: 0.5;
     width: 660px;
     height: 300px;
     margin: 0 auto;
@@ -47,23 +54,23 @@
     flex-direction: column;
 }
 
-.drag-area.active{
+#drop-area.active{
     background-color: #c4dfe6;
     color: aquamarine;
     border-radius: 2px dashed #323232;
 }
 
-.drag-area button{
+#drop-area button{
     bottom: 10px;
-	background: #07575b;
+	background: #00af00;
 	border-radius: 10px;
 	border: 1px solid #c4dfe6;
 	color: white; 
 	cursor: pointer;
 }
 
-.drag-area h2, span{
-    color: #fff;
+#drop-area h2, span{
+    color: black;
 }
 
 #preview{
@@ -74,7 +81,7 @@
     padding: 0 10px;
 }
 
-.succes{
+.success{
     color: red;
 }
 
@@ -89,13 +96,13 @@ input {
   }
 
 .form-control{
-    background: #002366;
-    border: none;
-    border-radius: none;
-    color: #fff;
+    background: white;
+    border: solid 2px #00af00;
+    border-radius: 2px #00af00;
+    color: black;
     margin: 0.5rem auto;
     padding: 1rem;
-    outline: none;
+    outline: 2px #00af00;
   }
 
 .form-control:focus,
@@ -106,10 +113,10 @@ input {
 }   
 
 .form-select{
-    background: #002366;
-    border: none;
+    background: none;
+    border: solid 2px #00af00;
     border-radius: none;
-    color: #fff;
+    color: black;
     margin: 0.5rem auto;
     padding: 1rem;
     outline: none;
@@ -117,7 +124,7 @@ input {
 
 .container button{
     bottom: 10px;
-	background: #07575b;
+	background: #00af00;
 	border-radius: 10px;
 	border: 1px solid #c4dfe6;
 	color: white; 
@@ -126,18 +133,18 @@ input {
 
 #btnlogin{
 	bottom: 10px;
-	background: #07575b;
+	background: #00af00;
 	border-radius: 10px;
 	border: 1px solid #c4dfe6;
 	color: white; 
 	cursor: pointer;
 }
 #btnlogin:hover{
-    background: #66a5ad;
+    background: #62ce62;
 }
 
 #btnlogin:active{
-    background: cyan;
+    background: #7cd47c;
 }
 
 /* #btnenviarc{
@@ -179,3 +186,13 @@ background: #66a5ad;
 #btnlogin:active{
 background: cyan;
 } */
+
+#btncargar:active{
+    background-position: right;
+    background: #7cd47c;
+}
+
+#btncargar1:active{
+    background-position-x: right;
+    background: #7cd47c;
+}

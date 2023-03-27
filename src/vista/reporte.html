@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="">
+    <link rel="stylesheet" href="./css/style.css">
+    <title>Seguimiento Desempeño Laboral</title>
+</head>
+<body>
+    <header>
+      <img alt="Centro para la Industria de la Comunicación Gráfica" height="172px; " id="Header1_headerimg" src="img\logo cenigraf.jpg" style="display: block" width="500px; ">
+        <h1>Consulta y Modificacion de Reporte de Seguimiento</h1>
+    </header>
+    <form action="">
+        <div class="mb-3 mt-3">
+          <label for="text" class="form-label">Fecha</label>
+          <input type="date" class="form-control" id="txtfechaEva" placeholder="00/00/0000" name="txtfechaEva">
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Periodo Seguimiento:</label>
+          <i<select class="form-select" id="txtperiodoseg">
+            <option>I</option>
+            <option>II</option>
+        </select>
+        </div>
+        <div class="mb-3">
+            <label for="text" class="form-label">Version:</label>
+            <input type="date" class="form-control" id="txtversion" placeholder="" name="txtversion">
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Nombre Completo</label>
+            <input type="number" class="form-control" id="txtnombreEvaluado" placeholder="Ingrese Nombre Completo" name="txtnombreEvaluado">
+          </div>
+        <div class="mb-3">
+            <label class="form-label">Numero Identificacion:</label>
+            <input type="text" class="form-control" id="txtDoc_Evaluado" placeholder="Ingrese el numero de documento" name="txtDoc_Evaluado">
+          </div>
+        <div class="mb-3">
+            <label class="form-label">Nombre Evaluador:</label>
+            <input type="email" class="form-control" id="txtNombreevaluador" placeholder="Ingrese Nombre Completo" name="txtNombreevaluador">
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Numero Identificacion:</label>
+            <input type="number" class="form-control" id="txtDoc_Evaluador" placeholder="Ingrese el Numero Identificacion" name="txtDoc_Evaluador">
+          </div>
+        <div class="mb-3">
+            <label class="form-label">Nombre Evaluador Comisionado:</label>
+            <input type="number" class="form-control" id="txtNombreevaluadorC" placeholder="Nombre Completo Evaluador Comisionado:" name="txtNombreevaluadorC">
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Numero Identificacion:</label>
+            <input type="text" class="form-control" id="txtDoc_EvaluadorC" placeholder="Ingrese Numero Identificacion" name="txtDoc_EvaluadorC">
+        </div>
+        <div class="mb-3">
+          <label for="text" class="form-label">Compromisos Funcionales:</label>
+          <input type="number" class="form-control" id="txtcompromisosf" " name="txtcompromisosf">
+           <select class="form-select" id="txtcompromisosf">
+            <option value="" selected>
+              Seleccionar Compromisos Funcionales 1
+              Seleccionar Compromisos Funcionales 2
+              Seleccionar Compromisos Funcionales 3
+              Seleccionar Compromisos Funcionales 4
+              Seleccionar Compromisos Funcionales 5
+            </option>
+            </select>
+        </div> 
+        <div class="mb-3">
+          <label for="text" class="form-label">Compromisos Comportamentales:</label>
+          <input type="number" class="form-control" id="txtcompromisosc" " name="txtcompromisosc">
+           <select class="form-select" id="txtcompromisosc">
+            <option value="" selected>
+              Seleccionar Compromisos Comportamentales 1
+              Seleccionar Compromisos Comportamentales 2
+              Seleccionar Compromisos Comportamentales 3
+              Seleccionar Compromisos Comportamentales 4
+              Seleccionar Compromisos Comportamentales 5
+            </option>
+            </select>
+        </div> 
+        <script src="../controlador/creporte.js"></script>
+        <button type="submit" id="btneliminarrep" class="btn btn-primary">Eliminar</button>
+        <button type="submit" id="btnactualizarrep" class="btn btn-primary">Actualizar</button>
+          
+  </form>
+</body>
+</html>
+
