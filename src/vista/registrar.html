@@ -56,16 +56,19 @@
         </div>
         <div class="mb-3">
           <label for="text" class="form-label">Profesional evaluador:</label>
-          <input type="number" class="form-control" id="txtprofev" placeholder="Ingrese el documento del profesinal evaluador" name="txtprofev">
-           <select class="form-select" id="txtprofev">
-            <option value="" selected>
+          <input type="number" class="form-control" id="txtprofev" placeholder="Ingrese el documento del profesional evaluador" name="txtprofev">
+           <!--<select class="form-select" id="txtprofev">
+             < % for (let i = 0; i < producto.length; i++) { % >
+              <option value="">< %= producto[i].ProE_Documento%></option>
+                                          < % } %> -->
+            <!-- <option value="" selected>
               Seleccionar Profesional evaluador
-            </option>
+            </option> -->
             </select>
         </div> 
-        <script src="../controlador/cregistrar.js"></script>
         <button type="submit" id="btnregistrar" class="btn btn-primary">Registrar</button>
       </form>
+      <script src="../controlador/cregistrar.js"></script>
     
 </body>
 </html>

@@ -109,43 +109,39 @@ function Vcrear(){
     // });
 }
 
-ipcMain.handle('get', () => {
-    getProducts()
- });
 
 ipcMain.handle('crear', (event, obj) => {
     crearInstructor(obj)
   });
 
-/*  electronIpcMain.on('consultCarreras', (event) => {
-    let idCarrera = '', nombreCarrera = '';
+  /*ipcMain.handle('getCarreras', () => {
+    Selectevaluadores()
+  });
+
+function Selectevaluadores(){}
+
   
-    db.query('SELECT * FROM carreras', (error, results, fields) => {
+    connection.query('SELECT * FROM profesionalevaluador', (error, results, fields) => {
       if (error) {
         console.log(error);
       }
+      let ProE_Documento = '', ProE_Nombre = '';
   
       if (results.length > 0) {
         for (let i = 0; i < results.length; i++) {
-          idCarrera += results[i].id_carrera + '_';
-          nombreCarrera += results[i].nombre_carrera + '_';
+            ProE_Documento += results[i].ProE_Documento + '_';
+          ProE_Nombre += results[i].ProE_Nombre + '_';
         }
   
-        store.set('idCarrera', idCarrera);
-        store.set('nombreCarrera', nombreCarrera);
       }
-    });
-  });
+    });*/
   
-  electronIpcMain.handle('getCarreras', (event) => {
-    const data = { idCarrera: store.get('idCarrera'), nombreCarrera: store.get('nombreCarrera') };
   
-    return data;
-  });
-*/
+
+
 function crearInstructor(obj)
   {
-    const sql = "INSERT INTO profesionalevaluado ('Pro_Documento', 'Pro_Nombre', 'Pro_Apellido', 'Pro_TipoId', 'Pro_Rol', 'Pro_Correo', 'Pro_Codigo', 'Pro_Grado', 'Pro_Dependencia', 'ProfesionalEvaluadorProE_Documento') VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";  
+    const sql = "INSERT INTO profesionalevaluado SET ?";  
     connection.query(sql, obj, (error, results, fields) => {
       if(error) {
          console.log(error);
@@ -160,12 +156,26 @@ function VcrearProevaluador(){
         height:600,
         title: 'Registrar profesionales evaluadores',
         webPreferences: {
-            preload: path.join(__dirname, 'controlador/crearproevaluador.js'),
+            preload: path.join(__dirname, 'controlador/crear_proevaluador.js'),
         }
     })
     ventanaCrearProEV.setMenu(null);
     ventanaCrearProEV.loadFile('src/vista/registrar-proevaluador.html')
 }
+
+ipcMain.handle('crearEvaluador', (event, obj) => {
+    crearProEvaluador(obj)
+  });
+
+function crearProEvaluador(obj)
+  {
+    const sql = "INSERT INTO profesionalevaluador SET ?";  
+    connection.query(sql, obj, (error, results, fields) => {
+      if(error) {
+         console.log(error);
+      }
+   });
+  }
 
 // ventana compromisos funcionales
 function VcrearCompromisos(){
