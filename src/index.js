@@ -11,6 +11,7 @@ require('electron-reload')(__dirname, {
 }*/
 
 let mainWindow;
+let invitadoWindow;
 let ventlogin;
 let ventanaActualizar;
 let ventanaCrear;
@@ -33,6 +34,23 @@ function ventanaindex(){
     mainWindow.loadFile('src/vista/index.html')
     const prinmenu=Menu.buildFromTemplate(nuevoMenu);
     Menu.setApplicationMenu(prinmenu);
+
+    
+};
+
+function ventanainvitado(){
+    invitadoWindow = new BrowserWindow({
+        width: 1000,
+        height: 1000,
+        title: 'Inicio',
+        webPreferences:{
+            // contextIsolation : false,
+            nodeIntegration : true, 
+            preload: path.join(__dirname, 'preload.js'),
+    }
+    }) 
+    invitadoWindow.loadFile('src/vista/vista-invitado.html')
+    invitadoWindow.setMenu(null);
 
     
 };
@@ -74,20 +92,25 @@ ipcMain.handle('btnlogin', (event, obj)=>{
 });
 
 function validatelogin(obj){
-    const{email, password}=obj
-    const sql= "SELECT * FROM usuarios WHERE Usu_Correo=? AND Usu_Password=?"
-    connection.query(sql, [email, password], (error, results, fields)=>{
+    const{email, password, rol}=obj
+    const sql= "SELECT * FROM usuarios WHERE Usu_Correo=? AND Usu_Password=? AND Rol=?"
+    connection.query(sql, [email, password, rol], (error, results, fields)=>{
         if(error){
             console.log(error);
         }
-        if(results.length>0){
+        if(results.length>0 && rol=='admin'){
             ventanaindex()
             mainWindow.show()
+            ventlogin.close()
+        }
+        else if(results.length>0 && rol=='subdirector'){
+            ventanainvitado()
+            invitadoWindow.show()
             ventlogin.close()
         }else{
             new Notification({
                 title: "login",
-                body: 'correo o contraseña incorrectos'
+                body: 'correo, contraseña o rol incorrectos'
             }).show()
         }
     });
