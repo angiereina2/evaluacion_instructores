@@ -10,10 +10,21 @@
 </head>
 <body>
     <header>
+        <img alt="Centro para la Industria de la Comunicación Gráfica" height="172px; " id="Header1_headerimg" src="img\logo cenigraf.jpg" style="display: block" width="525px; ">
         <h1 class="titulo">Evaluación de desempeño laboral 2023</h1>
     </header>
-      
-    <div id="preview"></div>
+        <p class="text-center" style="margin-top: 40px;">
+            <div id="drop-area">
+                <h2>Arrastre y suelte su archivo</h2>
+                <span>O</span>
+                <button>Seleccione el archivo</button>
+                <!-- <input type="button" value="Escoge un archivo" id="select-file"/> -->
+                <input type="file" id="txtarchivo" hidden multiple>
+            </div>
+        </p>
+
+    <script src="../renderer.js"></script>
+
     <div class="container">
         <form action="">
         <div class="row" id="Plantilla">
@@ -56,15 +67,23 @@
                   <option>4</option>
                 </select>
                 <p></p> -->
-                <label>Profesionales evaluados:</label>
-      >
+                <!-- <label>Profesionales evaluados:</label>
+            <select class="form-select">
+                <option>lina suares</option>
+                <option>luz lopez</option>
+                <option>carlos gutierrez</option>
+              </select> -->
+
+              <div class="mb-3">
+                <label class="form-label">Profesionales evaluados:</label>
+                <input type="number" class="form-control" id="txt-cedula-evaluado" placeholder="Ingrese el rol del Instructor">
+              </div>
+              <script src="../funcional.js"></script>
         </div>
         <p></p>
         <button type="submit" id="btnguardar" class="btn btn-success">&nbsp; Guardar</button>
         &nbsp; &nbsp;
         <button type="submit" id= "btnenviarc" class="btn btn-danger">&nbsp; Enviar</button>
-        &nbsp; &nbsp;
-        <button type="submit" id= "btneliminar" class="btn btn-danger">&nbsp; Eliminar</button>
     </form>
     </div>
 </body>

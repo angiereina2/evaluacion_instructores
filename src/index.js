@@ -2,6 +2,7 @@ const {app, BrowserWindow, Menu, ipcMain, Notification} =require('electron');
 const connection=require('./conexion/conectar');
 const url=require('url');
 const path =require('path');
+const { lstatSync } = require('fs');
 
 /*if(process.env.NODE_ENV !== 'production'){
 require('electron-reload')(__dirname, {
@@ -10,8 +11,13 @@ require('electron-reload')(__dirname, {
 }*/
 
 let mainWindow;
+let invitadoWindow;
 let ventlogin;
 let ventanaActualizar;
+let ventanaCrear;
+let ventanaCrearProEV;
+let ventanaCrearCompromisos;
+let ventanaCrearU;
 
 function ventanaindex(){
     mainWindow = new BrowserWindow({
@@ -19,15 +25,39 @@ function ventanaindex(){
         height: 1000,
         title: 'Inicio',
         webPreferences:{
-        preload: path.join(__dirname, 'src/controlador/controlador.js'),
+            // contextIsolation : false,
+            nodeIntegration : true, 
+            preload: path.join(__dirname, 'preload.js'),
     }
     }) 
+    mainWindow.webContents.openDevTools()
     mainWindow.loadFile('src/vista/index.html')
     const prinmenu=Menu.buildFromTemplate(nuevoMenu);
     Menu.setApplicationMenu(prinmenu);
 
     
 };
+
+function ventanainvitado(){
+    invitadoWindow = new BrowserWindow({
+        width: 1000,
+        height: 1000,
+        title: 'Inicio',
+        webPreferences:{
+            // contextIsolation : false,
+            nodeIntegration : true, 
+            preload: path.join(__dirname, 'preload.js'),
+    }
+    }) 
+    invitadoWindow.loadFile('src/vista/vista-invitado.html')
+    invitadoWindow.setMenu(null);
+
+    
+};
+
+ipcMain.handle("is-file", async (_, path)=>{
+    return lstatSync(path).isFile();
+})
 
 //ventana de inicio de sesion
 function loginv(){
@@ -62,30 +92,176 @@ ipcMain.handle('btnlogin', (event, obj)=>{
 });
 
 function validatelogin(obj){
-    const{email, password}=obj
-    const sql= "SELECT * FROM usuarios WHERE Usu_Correo=? AND Usu_Password=?"
-    connection.query(sql, [email, password], (error, results, fields)=>{
+    const{email, password, rol}=obj
+    const sql= "SELECT * FROM usuarios WHERE Usu_Correo=? AND Usu_Password=? AND Rol=?"
+    connection.query(sql, [email, password, rol], (error, results, fields)=>{
         if(error){
             console.log(error);
         }
-        if(results.length>0){
+        if(results.length>0 && rol=='admin'){
             ventanaindex()
             mainWindow.show()
+            ventlogin.close()
+        }
+        else if(results.length>0 && rol=='subdirector'){
+            ventanainvitado()
+            invitadoWindow.show()
             ventlogin.close()
         }else{
             new Notification({
                 title: "login",
-                body: 'correo o contraseña incorrectos'
+                body: 'correo, contraseña o rol incorrectos'
             }).show()
         }
     });
 }
 
+//logout
+ipcMain.handle('logout', (event, confirm) => {
+  validateLogout(confirm);
+});
+
+function validateLogout(confirm) {
+  if (confirm == 'confirm-logout') {
+    loginv();
+    ventlogin.show();
+    mainWindow.close();
+  }
+}
+
+//funcion para la ventana de registros
+function Vcrear(){
+    ventanaCrear=new BrowserWindow({
+        width: 600,
+        height:600,
+        title: 'Registrar',
+        webPreferences: {
+            preload: path.join(__dirname, 'controlador/cregistrar.js'),
+        }
+    })
+    ventanaCrear.setMenu(null);
+    ventanaCrear.loadFile('src/vista/registrar.html')
+    // ventanaCrear.on('closed', ()=>{
+    //     ventanaCrear=null;
+    // });
+}
+
+
+ipcMain.handle('crear', (event, obj) => {
+    crearInstructor(obj)
+  });
+
+  /*ipcMain.handle('getCarreras', () => {
+    Selectevaluadores()
+  });
+
+function Selectevaluadores(){}
+
+  
+    connection.query('SELECT * FROM profesionalevaluador', (error, results, fields) => {
+      if (error) {
+        console.log(error);
+      }
+      let ProE_Documento = '', ProE_Nombre = '';
+  
+      if (results.length > 0) {
+        for (let i = 0; i < results.length; i++) {
+            ProE_Documento += results[i].ProE_Documento + '_';
+          ProE_Nombre += results[i].ProE_Nombre + '_';
+        }
+  
+      }
+    });*/
+  
+  
+
+
+function crearInstructor(obj)
+  {
+    const sql = "INSERT INTO profesionalevaluado SET ?";  
+    connection.query(sql, obj, (error, results, fields) => {
+      if(error) {
+         console.log(error);
+      }
+   });
+  }
+
+// ventana crear profesiosanles evaluadores
+function VcrearProevaluador(){
+    ventanaCrearProEV=new BrowserWindow({
+        width: 600,
+        height:600,
+        title: 'Registrar profesionales evaluadores',
+        webPreferences: {
+            preload: path.join(__dirname, 'controlador/crear_proevaluador.js'),
+        }
+    })
+    ventanaCrearProEV.setMenu(null);
+    ventanaCrearProEV.loadFile('src/vista/registrar-proevaluador.html')
+}
+
+ipcMain.handle('crearEvaluador', (event, obj) => {
+    crearProEvaluador(obj)
+  });
+
+function crearProEvaluador(obj)
+  {
+    const sql = "INSERT INTO profesionalevaluador SET ?";  
+    connection.query(sql, obj, (error, results, fields) => {
+      if(error) {
+         console.log(error);
+      }
+   });
+  }
+
+// ventana compromisos funcionales
+function VcrearCompromisos(){
+    ventanaCrearCompromisos=new BrowserWindow({
+        width: 600,
+        height:600,
+        title: 'Registrar compromisos',
+        webPreferences: {
+            preload: path.join(__dirname, 'controlador/crearcompromisos.js'),
+        }
+    })
+    ventanaCrearCompromisos.setMenu(null);
+    ventanaCrearCompromisos.loadFile('src/vista/registrar-compromisos.html')
+}
+
+//ventana crear usuarios
+function VcrearUsuarios(){
+    ventanaCrearU=new BrowserWindow({
+        width: 600,
+        height:600,
+        title: 'Registrar Usuarios',
+        webPreferences: {
+            preload: path.join(__dirname, 'controlador/crearusuarioc.js'),
+        }
+    })
+    ventanaCrearU.webContents.openDevTools();
+    ventanaCrearU.setMenu(null);
+    ventanaCrearU.loadFile('src/vista/registrar-usuarios.html')
+}
+
+ipcMain.handle('crearU', (event, obj) => {
+    crearUsuarios(obj)
+  });
+
+function crearUsuarios(obj)
+  {
+    const sql = "INSERT INTO usuarios SET ?";  
+    connection.query(sql, obj, (error, results, fields) => {
+      if(error) {
+         console.log(error);
+      }
+   });
+  }
+
 //funcion para crear la ventana de actualizar
 function Vactualizar(){
     ventanaActualizar = new BrowserWindow({
-        width: 500,
-        height: 500,
+        width: 600,
+        height: 600,
         title: 'Actualizar'
     })
     ventanaActualizar.setMenu(null);
@@ -114,10 +290,38 @@ const nuevoMenu=[
     },
 
     {
-        label: 'Update',
+        label: 'CRUD',
         submenu: [
             {
-                label: 'Nueva ventana',
+                label: 'Crear Instructores',
+                accelerator: process.platform=='darwin' ? 'command+L': 'Ctrl+L', 
+                click(){
+                    Vcrear();
+                }
+            },
+            {
+                label: 'Crear profesionales evaluadores',
+                accelerator: process.platform=='darwin' ? 'command+P': 'Ctrl+P',
+                click(){
+                    VcrearProevaluador();
+                }
+            },
+            {
+                label: 'Crear compromisos',
+                accelerator: process.platform=='darwin' ? 'command+F': 'Ctrl+F',
+                click(){
+                    VcrearCompromisos();
+                }
+            },
+            {
+                label: 'Crear nuevos usuarios',
+                accelerator: process.platform=='darwin' ? 'command+M': 'Ctrl+M',
+                click(){
+                    VcrearUsuarios();
+                }
+            },
+            {
+                label: 'Actualizar',
                 accelerator: process.platform=='darwin' ? 'command+V': 'Ctrl+V',
                 click(){
                     Vactualizar();

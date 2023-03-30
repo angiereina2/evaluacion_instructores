@@ -10,33 +10,10 @@
 </head>
 <body>
     <header>
-        <img alt="Centro para la Industria de la Comunicación Gráfica" height="172px; " id="Header1_headerimg" src="img\logo cenigraf.jpg" style="display: block" width="525px; ">
         <h1 class="titulo">Evaluación de desempeño laboral 2023</h1>
     </header>
-    <button type="submit" id="btnlogout" class="btn btn-success">&nbsp; Cerrar Sesion</button>
-    <div class="dropdown-body">
-      <ul class="profile-nav p-0 pt-3">
-        <li class="nav-item">
-          <a href="#" id="btnlogout" class="nav-link">
-            <i data-feather="log-out"></i>
-            <span>Cerrar Sesión</span>
-          </a>
-        </li>
-      </ul>
-    </div>
-    <script src="../loginf.js"></script>
-        <p class="text-center" style="margin-top: 40px;">
-            <div id="drop-area">
-                <h2>Arrastre y suelte su archivo</h2>
-                <span>O</span>
-                <button>Seleccione el archivo</button>
-                <!-- <input type="button" value="Escoge un archivo" id="select-file"/> -->
-                <input type="file" id="txtarchivo" hidden multiple>
-            </div>
-        </p>
-
-    <script src="../renderer.js"></script>
-
+     
+    <div id="preview"></div>
     <div class="container">
         <form action="">
         <div class="row" id="Plantilla">
@@ -79,23 +56,12 @@
                   <option>4</option>
                 </select>
                 <p></p> -->
-                <!-- <label>Profesionales evaluados:</label>
-            <select class="form-select">
-                <option>lina suares</option>
-                <option>luz lopez</option>
-                <option>carlos gutierrez</option>
-              </select> -->
-
-              <div class="mb-3">
-                <label class="form-label">Profesionales evaluados:</label>
-                <input type="number" class="form-control" id="txt-cedula-evaluado" placeholder="Ingrese el rol del Instructor">
-              </div>
-              <script src="../funcional.js"></script>
-        </div>
+                <label>Creacion Formulario:</label>
+            </div>
         <p></p>
-        <button type="submit" id="btnguardar" class="btn btn-success">&nbsp; Guardar</button>
+        <button type="submit" id="btnguardarcreate" class="btn btn-success">&nbsp; Guardar</button>
         &nbsp; &nbsp;
-        <button type="submit" id= "btnenviarc" class="btn btn-danger">&nbsp; Enviar</button>
+        <button type="submit" id= "btnenviarcreate" class="btn btn-danger">&nbsp; Enviar</button>
     </form>
     </div>
 </body>
