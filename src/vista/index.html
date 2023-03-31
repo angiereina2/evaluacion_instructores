@@ -13,11 +13,6 @@
         <img alt="Centro para la Industria de la Comunicación Gráfica" height="172px; " id="Header1_headerimg" src="img\logo cenigraf.jpg" style="display: block" width="525px; ">
         <h1 class="titulo">Evaluación de desempeño laboral 2023</h1>
     </header>
-    <input type="button" id="btnlogout" value="Cerrar Sesion" style="float: left;">
-    <script>
-    let btnLogout = document.getElementById('btnlogout');
-    btnLogout.addEventListener('click', this.logout);
-    </script>
         <p class="text-center" style="margin-top: 40px;">
             <div id="drop-area">
                 <h2>Arrastre y suelte su archivo</h2>
@@ -91,5 +86,20 @@
         <button type="submit" id= "btnenviarc" class="btn btn-danger">&nbsp; Enviar</button>
     </form>
     </div>
+    <p></p>
+<p class="text-center">
+    <button type="submit" id="btnlogout" class="btn btn-success" style="float: center;">&nbsp; Cerrar Sesion</button>
+    <script>
+      /*window.addEventListener('DOMContentLoaded', () => {
+        window.electron.getUser().then((user) => {
+          document.getElementById("username").innerHTML = `${user.profile.firstName} ${user.profile.lastName}`
+        });
+      });*/
+    
+      document.getElementById('btnlogout').addEventListener('click', () => {
+        window.electron.logout();
+      });
+    </script>
+    </p>
 </body>
 </html>

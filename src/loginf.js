@@ -1,4 +1,4 @@
-const {ipcRenderer}=require('electron')
+const {contextBridge, ipcRenderer}=require('electron')
 
 let btnlogin;
 let email;
@@ -17,3 +17,10 @@ window.onload=function(){
     }
 }
 
+contextBridge.exposeInMainWorld("electron", {
+  /*getUser: async () => {
+    const user = await ipcRenderer.invoke("user:get");
+    return user;
+  },*/
+  logout: () => ipcRenderer.send("user:logout"),
+});

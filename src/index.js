@@ -18,6 +18,7 @@ let ventanaCrear;
 let ventanaCrearProEV;
 let ventanaCrearCompromisos;
 let ventanaCrearU;
+let user;
 
 function ventanaindex(){
     mainWindow = new BrowserWindow({
@@ -27,9 +28,17 @@ function ventanaindex(){
         webPreferences:{
             // contextIsolation : false,
             nodeIntegration : true, 
-            preload: path.join(__dirname, 'preload.js'),
+            preload: path.join(__dirname, 'loginf.js'),
     }
+    
     }) 
+    //descargar archivo
+    mainWindow.loadURL(`file://${__dirname}/index.html`);
+    ipcMain.on("download", (event, info) => {
+        download(BrowserWindow.getFocusedWindow(), info.url, info.properties)
+            .then(dl => mainWindow.webContents.send("download complete", dl.getSavePath()));
+    });
+
     mainWindow.webContents.openDevTools()
     mainWindow.loadFile('src/vista/index.html')
     const prinmenu=Menu.buildFromTemplate(nuevoMenu);
@@ -115,6 +124,31 @@ function validatelogin(obj){
         }
     });
 }
+
+//logout
+/*ipcMain.handle('logout', (event, confirm) => {
+  validateLogout(confirm);
+});
+
+function validateLogout(confirm) {
+  if (confirm == 'confirm-logout') {
+    loginv();
+    ventlogin.show();
+    mainWindow.close();
+  }
+}
+
+ipcMain.handle("user:get", (event) => {
+    return user;
+  });*/
+
+ipcMain.on("user:logout", (event) => {
+    user = null;
+    loginv();
+    ventlogin.show();
+    mainWindow.close();
+  });
+
 //funcion para la ventana de registros
 function Vcrear(){
     ventanaCrear=new BrowserWindow({
