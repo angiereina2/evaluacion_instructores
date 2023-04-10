@@ -1,11 +1,11 @@
- const connection = require('../conexion/conectar');
+const connection = require('../conexion/conectar');
 
-exports.InicioL = (req, res)=>{
+exports.loginf.js = (req, res)=>{
 
     const txtemail = (req.body.txtemail);
     const txtpassword = (req.body.txtpassword);
     console.log(txtemail +" - "+txtpassword);
-    connection.query('INSERT INTO InicioL SET ?',{InicioL:txtemail,txtpassword}, (eror, results)=>{
+    connection.query('INSERT INTO loginf.js SET ?',{loginf:txtemail,txtpassword}, (eror, results)=>{
         if(error){
             console.log(error);
          } else{
@@ -14,4 +14,18 @@ exports.InicioL = (req, res)=>{
 
     })
 
+};
+
+
+exports.cregistar = (req, res)=> {
+    const id = req.body.id;
+    const txtemail = req.body.txtemail;
+    const txtpassword = req.body.txtpassword;
+    connection.query('UPDATE Usuarios SET ? where id= ?'[{txtarea:txtarea, txtpassword:txtpassword}, id], (eror,results)=>{
+        if(error){
+            console.log(error);
+         } else{
+            res.redirect('/');
+         }
+    })
 }

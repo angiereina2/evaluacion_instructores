@@ -17,7 +17,7 @@ let ventanaCrear;
 let ventanaCrearProEV;
 let ventanaCrearCompromisos;
 let ventanaCrearU;
-let Vseguimiento;
+let VentanaSeguimientoreporte;
 
 function ventanaindex(){
     mainWindow = new BrowserWindow({
@@ -118,29 +118,75 @@ ipcMain.handle('crear', (event, obj) => {
   });
 
 //funcion para la ventana de seguimiento
-function Vseguimiento(){
-    vtanaseguimiento=new BrowserWindow({
-        width: 600,
-        height:600,
-        title: 'Seguimiento',
-        webPreferences: {
-            preload: path.join(__dirname, 'controlador/creporte.js'),
-        }
+function creporte(){
+    function ReporteSeguimiento(){
+        VentanaSeguimientoreporte = new BrowserWindow({ 
+                            width: 400, 
+                            height: 330, 
+                            title: 'Consultar Reportes Seguimiento'
+        });
+        VentanaSeguimientoreporte.setMenu(null);
+        VentanaSeguimientoreporte.loadURL(url.format({
+        pathname: path.join(__dirname, 'vista/seguimiento.html'),
+        protocol:'file',
+        slashes: true
+        })) 
+    
+        VentanaSeguimientoreporte.on('closed', () => {
+            VentanaSeguimientoreporte = null;
+        });
+    }
+    
+    const templateMenu = [
+        {
+        label:'File',
+        submenu: [
+            {
+            label:'Reporte Seguimiento',
+            accelerator: 'Ctrl+R',
+            click(){
+                ReporteSeguimiento()
+            }
+            },
+            {
+                label:'Eliminar Reporte',
+                click() {
+                }
+            },
+            {
+                label:'Exit',
+                accelerator: process.platform == 'darwin' ? 'command+Q' : 'Ctrl+Q',
+                click() {
+                    app.quit();
+                }
+            }
+        ]
+    },
+    
+    ];
+    if (process.platform === 'darwin'){
+        templateMenu.unshift({
+            label: app.getName()
+        });
+    }
+    
+    if(process.env.NODE_ENV !== 'production'){
+        templateMenu.push({
+            label: 'DevTools',
+            submenu: [
+                {
+                    label: 
+                    'Show/Hide Dev Tools',
+                    click(item, focusedWindow){
+                        focusedWindow.toggleDevTools();
+                    }
+                },
+                {
+                    role: 'reload'
+                }
+            ]
     })
-    vtanaseguimiento.setMenu(null);
-    vtanaseguimiento.loadFile('src/vista/reporte.html')
-    // ventanaConsultar.on('closed', ()=>{
-    // ventanaConsultar=null;
-    // });
-}
-
-ipcMain.handle('get', () => {
-    getProducts()
- });
-
-ipcMain.handle('crear', (event, obj) => {
-    'Repor_segto'(obj)
-  });
+    }
 /*  electronIpcMain.on('consultCarreras', (event) => {
     let idCarrera = '', nombreCarrera = '';
   
@@ -323,4 +369,5 @@ if(process.env.NODE_ENV !== 'production'){
             }
         ]
     })
+}
 }
