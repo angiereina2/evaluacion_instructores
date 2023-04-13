@@ -147,7 +147,6 @@ ipcMain.on("user:logout", (event) => {
     loginv();
     ventlogin.show();
     mainWindow.close();
-    invitadoWindow.close();
     ventanaCrear.close();
     ventanaActualizar.close();
     ventanaCrearCompromisos.close();
@@ -272,9 +271,8 @@ function VcrearUsuarios(){
             preload: path.join(__dirname, 'controlador/crearusuarioc.js'),
         }
     })
-    ventanaCrearU.webContents.openDevTools();
     ventanaCrearU.setMenu(null);
-    ventanaCrearU.loadFile('src/registrar-usuarios.html')
+    ventanaCrearU.loadFile('src/vista/registrar_usuarios.html')
 }
 
 ipcMain.handle('crearU', (event, obj) => {

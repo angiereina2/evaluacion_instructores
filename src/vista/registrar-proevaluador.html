@@ -4,8 +4,9 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="">
+    <link rel="stylesheet" href="https://bootswatch.com/5/minty/bootstrap.min.css">
     <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="C:/Users/APRENDIZ/Documents/proyecto/evaluacion_instructores/node_modules/@fortawesome/fontawesome-free/css/all.css">
     <title>Registrar</title>
 </head>
 <body>
@@ -14,6 +15,7 @@
         <h1>Registrar profesionales evaluaodores</h1>
     </header>
     <form>
+      <div class="container">
         <div class="mb-3 mt-3">
           <label for="text" class="form-label">Nombre:</label>
           <input type="text" class="form-control" id="txtnombreproe" placeholder="Ingrese los nombres del Instructor">
@@ -51,7 +53,8 @@
             <input type="text" class="form-control" id="txtdpendenciaproe" placeholder="Ingrese la dependencia del instructor">
         </div>
         
-        <button type="submit" id="btnregistrar-proevaluador" class="btn btn-primary">Registrar</button>
+        <button type="submit" id="btnregistrar-proevaluador" class="btn btn-primary"><i class="fas fa-folder-open"></i> Registrar</button>
+      </div>
     </form>
       <script src="../controlador/crear_proevaluador.js"></script>
 </body>

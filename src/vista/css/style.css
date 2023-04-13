@@ -135,6 +135,10 @@ input {
     position: relative;
 }
 
+.form-select{
+    background-color: white;
+}
+
 div#is-relative{
     max-width: 420px;
     position: relative;
@@ -152,6 +156,7 @@ div#is-relative{
 }
 .input{
   padding-right: 2.5rem;
+  position: relative;
 }
 
 #btnlogin{
