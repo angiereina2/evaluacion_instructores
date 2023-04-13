@@ -76,9 +76,14 @@
 
               <div class="mb-3">
                 <label class="form-label">Profesionales evaluados:</label>
-                <input type="number" class="form-control" id="txt-cedula-evaluado" placeholder="Ingrese el rol del Instructor">
+                <input list="myselectbuscar">
+                <datalist id="myselectbuscar"> 
+                <select id="myselect">
+                  <option value=""></option>
+                </select>
+                </datalist>
+
               </div>
-              <script src="../funcional.js"></script>
         </div>
         <p></p>
         <button type="submit" id="btnguardar" class="btn btn-success">&nbsp; Guardar</button>
@@ -86,5 +91,21 @@
         <button type="submit" id= "btnenviarc" class="btn btn-danger">&nbsp; Enviar</button>
     </form>
     </div>
+    <p class="text-center">
+      <button type="submit" id="btnlogout" class="btn btn-success" style="float: center;">&nbsp; Cerrar Sesion</button>
+      <script src="../loginf.js"></script>
+      <script>
+        /*window.addEventListener('DOMContentLoaded', () => {
+          window.electron.getUser().then((user) => {
+            document.getElementById("username").innerHTML = `${user.profile.firstName} ${user.profile.lastName}`
+          });
+        });*/
+      
+        document.getElementById('btnlogout').addEventListener('click', () => {
+          
+          window.electron.logout();
+        });
+      </script>
+      </p>
 </body>
 </html>

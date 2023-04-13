@@ -17,6 +17,8 @@ window.onload=function(){
     }
 }
 
+function cerrarSesion(){
+
 contextBridge.exposeInMainWorld("electron", {
   /*getUser: async () => {
     const user = await ipcRenderer.invoke("user:get");
@@ -24,3 +26,6 @@ contextBridge.exposeInMainWorld("electron", {
   },*/
   logout: () => ipcRenderer.send("user:logout"),
 });
+}
+
+module.exports=cerrarSesion();

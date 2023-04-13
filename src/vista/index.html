@@ -7,6 +7,7 @@
     <title>Plantilla Seguimiento</title>
     <link rel="stylesheet" href="https://bootswatch.com/5/minty/bootstrap.min.css">
     <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="C:/Users/APRENDIZ/Documents/proyecto/evaluacion_instructores/node_modules/@fortawesome/fontawesome-free/css/all.css">
 </head>
 <body>
     <header>
@@ -73,22 +74,38 @@
                 <option>luz lopez</option>
                 <option>carlos gutierrez</option>
               </select> -->
-
+              
               <div class="mb-3">
                 <label class="form-label">Profesionales evaluados:</label>
-                <input type="number" class="form-control" id="txt-cedula-evaluado" placeholder="Ingrese el rol del Instructor">
+                <input list="myselectbuscar">
+                <datalist id="myselectbuscar"> 
+                <select id="myselect">
+                  <option value=""></option>
+                </select>
+                </datalist>
+
               </div>
-              <script src="../funcional.js"></script>
+              <!-- <script src="../select.js"></script> -->
         </div>
-        <p></p>
-        <button type="submit" id="btnguardar" class="btn btn-success">&nbsp; Guardar</button>
+        <p class="text-center" style="margin-top: 40px;">
+        <button type="submit" id="btnguardar" class="btn btn-success"><i class="fas fa-download"></i> &nbsp; Guardar</button>
         &nbsp; &nbsp;
         <button type="submit" id= "btnenviarc" class="btn btn-danger">&nbsp; Enviar</button>
+      </p>
     </form>
-    </div>
+    
+    <script src="../funcional.js"></script>
+    <script>
+      document.getElementById('btnguardar').addEventListener('click', () => {
+        
+        crearExcel();
+      });
+    </script>
     <p></p>
 <p class="text-center">
-    <button type="submit" id="btnlogout" class="btn btn-success" style="float: center;">&nbsp; Cerrar Sesion</button>
+    <button type="submit" id="btnlogout" class="btn btn-danger" style="float: center;"> <i class="fas fa-sign-out"></i> &nbsp; Cerrar Sesión</button>
+  </div>
+    <script src="../loginf.js"></script>
     <script>
       /*window.addEventListener('DOMContentLoaded', () => {
         window.electron.getUser().then((user) => {
@@ -97,9 +114,37 @@
       });*/
     
       document.getElementById('btnlogout').addEventListener('click', () => {
+        
         window.electron.logout();
       });
     </script>
     </p>
+    <!-- <button type="button" id="download">Descargar</button>
+<div id="headers"></div>
+<script src="../funcional.js"></script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script>
+    const button = document.getElementById('download');
+    button.addEventListener('click', (event) => {
+      event.preventDefault();
+      axios.get('http://localhost/descargas', {  // <= sustituyes por tu ruta
+        responseType: 'blob',
+        headers: {
+          Accept: 'application/octet-stream'
+        }
+      })
+        .then((res) => {
+          const fileName2 = res.headers['x-processed-filename']; // <= cabezera personalizada
+          const url = window.URL.createObjectURL(new Blob([res.data]));
+          const link = document.createElement('a');
+          link.href = url;
+          // link.setAttribute('download', fileName);
+          link.setAttribute("download", `documento.xlsx`);
+          document.body.appendChild(link);
+          link.click();
+          link.remove();
+        });
+    });
+    </script> -->
 </body>
 </html>

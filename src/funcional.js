@@ -20,9 +20,10 @@ function leerexcel(ruta){
     //console.log(datos);
 }
 */
-
+function crearExcel(){
 const mysql = require('mysql');
 const Excel = require('exceljs');
+const {dialog}=require('electron');
 
 
 
@@ -43,7 +44,11 @@ const con = mysql.createConnection({
  con.connect((err) => {
 	if (err) throw err;
     //let cedulaev = document.getElementById("txt-cedula-evaluado");
-    let cedulaev =652314987;
+    let cedulaev;
+    //document.addEventListener("DOMContentLoaded", function() {
+    cedulaev =document.getElementById("myselect");
+    
+    
 	// -> Query data from MySQL
 	 con.query("SELECT * FROM profesionalevaluado inner join profesionalevaluador on profesionalevaluador.ProE_Documento=profesionalevaluado.ProfesionalEvaluadorProE_Documento inner join compromisosfucionales on profesionalevaluado.Pro_Documento=compromisosfucionales.ProfesionalEvaluadoPro_Documento inner join compromisoscomportamentales on profesionalevaluado.Pro_Documento=compromisoscomportamentales.ProfesionalEvaluadoPro_Documento WHERE Pro_Documento=?",cedulaev, function (err, profesionalevaluado, fields) {
 		
@@ -83,26 +88,41 @@ const con = mysql.createConnection({
             //Compromisos comportamentales
             worksheet.getRow(28).getCell(3).value=jsonCustomers[0].ComC_Descripcion;
 
-        //workbook.xlsx.writeFile(fileName);
+        workbook.xlsx.writeFile(fileName);
 
-        const buffer =  await workbook.xlsx.writeBuffer();
+       // const buffer =  await workbook.xlsx.writeBuffer(fileName);
 
-        const fileName2 = `F-RFI-V${id_rdi}.xlsx`
+        /*const options={
+            title: 'Seleccione la carpeta de descarga',
+            properties: ['openDirectory']
+        };
 
-        console.log('Sending buffer');
+        const folderPaths= await dialog.showOpenDialog(options);
 
-        res.set({
-        'Content-Type': 'application/octet-stream',
-        'Content-Disposition': 'attachment; filename="' + fileName2 + '"',
-        'x-processed-filename': fileName2 
-        });
+        if(folderPaths && folderPaths.length > 0){
+            const filePath=`${folderPaths[0]}/documento.xlsx`;
+            require('fs').writeFileSync(filePath, buffer);
 
-        await res.status(200).send(buffer);
+            console.log(`El archivo se ha guardado correctamente en: ${filePath}`);
+        }*/
+
         }
 
-        escribirExcel();
+        return escribirExcel;
+
+        
 });
 });
+
+}
+
+module.exports=crearExcel;
+
+function holaaa(){
+    let pol=document.getElementById("myselect1");
+
+    console.log(pol);
+}
 
 /*const fileName = 'src/GTH-F-304V3Formatoseguimientoaldesempenolaboral (2).xlsx';
 

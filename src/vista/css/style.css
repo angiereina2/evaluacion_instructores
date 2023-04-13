@@ -131,6 +131,29 @@ input {
 	cursor: pointer;
 }
 
+.form-group{
+    position: relative;
+}
+
+div#is-relative{
+    max-width: 420px;
+    position: relative;
+  }
+
+.icon{
+    position: absolute;
+  display: block;
+  bottom: .6rem;
+  right: 1rem;
+  color: #00af00;
+  
+  user-select: none;
+  cursor: pointer;
+}
+.input{
+  padding-right: 2.5rem;
+}
+
 #btnlogin{
 	bottom: 10px;
 	background: #00af00;

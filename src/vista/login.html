@@ -7,6 +7,7 @@
     <title>Inicio de Sesion</title>
     <link rel="stylesheet" href="https://bootswatch.com/5/minty/bootstrap.min.css"> 
     <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="C:/Users/APRENDIZ/Documents/proyecto/evaluacion_instructores/node_modules/@fortawesome/fontawesome-free/css/all.css">
 </head>
 <body>
   <header>
@@ -20,14 +21,23 @@
           <div class="col-12 col-md-6">
             <div class="form-group">
               <label for="email" class="form-label">Correo:</label>
+              <span class="icon is-small">
+              <i class="fas fa-envelope"></i>
+            </span>
               <input type="email" class="form-control" id="txtemail" placeholder="Ingrese su correo electronico" name="txtemail" required>
             </div>
             </div>
+            <div id="is-relative">
             <div class="col-12 col-md-6">
               <div class="form-group">
               <label for="pwd" class="form-label">Contraseña:</label>
+              <span class="icon is-small">
+              <i class="fas fa-key"></i>
+            </span>
               <input type="password" class="form-control" id="txtpassword" placeholder="Ingrese su contraseña" name="txtpassword" required>
             </div>
+          </div>
+        </div>
             <div class="col-12 col-md-6">
               <div class="form-group">
               <label class="form-label">Rol:</label>
@@ -38,7 +48,7 @@
             </div>
             </div>
             <p class="text-center" style="margin-top: 40px;">
-            <button type="submit" id="btnlogin" class="btn btn-primary">Ingresar</button>
+            <button type="submit" id="btnlogin" class="btn btn-primary"><i class="fas fa-unlock-alt"></i> &nbsp; Ingresar</button>
           </p>
          </form>
       </div> 

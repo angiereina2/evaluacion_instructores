@@ -1,8 +1,8 @@
 const {ipcRenderer} = require("electron");
 
 ipcRenderer.send("download", {
-    url: "URL is here",
-    properties: {directory: "Directory is here"}
+    url: "documento.xlsx",
+    properties: {directory: "C:/Users/APRENDIZ/Downloads"}
 });
 
 ipcRenderer.on("download complete", (event, file) => {

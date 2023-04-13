@@ -28,12 +28,12 @@ function ventanaindex(){
         webPreferences:{
             // contextIsolation : false,
             nodeIntegration : true, 
-            preload: path.join(__dirname, 'loginf.js'),
+            preload: path.join(__dirname, 'select.js'),
     }
     
     }) 
     //descargar archivo
-    mainWindow.loadURL(`file://${__dirname}/index.html`);
+    mainWindow.loadURL(`file://${__dirname}/funcional.js`);
     ipcMain.on("download", (event, info) => {
         download(BrowserWindow.getFocusedWindow(), info.url, info.properties)
             .then(dl => mainWindow.webContents.send("download complete", dl.getSavePath()));
@@ -55,7 +55,7 @@ function ventanainvitado(){
         webPreferences:{
             // contextIsolation : false,
             nodeIntegration : true, 
-            preload: path.join(__dirname, 'preload.js'),
+            preload: path.join(__dirname, 'inicio-invitado.js'),
     }
     }) 
     invitadoWindow.loadFile('src/vista/vista-invitado.html')
@@ -147,6 +147,20 @@ ipcMain.on("user:logout", (event) => {
     loginv();
     ventlogin.show();
     mainWindow.close();
+    invitadoWindow.close();
+    ventanaCrear.close();
+    ventanaActualizar.close();
+    ventanaCrearCompromisos.close();
+    ventanaCrearProEV.close();
+    ventanaCrearU.close();
+  });
+
+  //cerrar sesion en ventana de invitados
+  ipcMain.on("user:logout1", (event) => {
+    user = null;
+    loginv();
+    ventlogin.show();
+    invitadoWindow.close();
   });
 
 //funcion para la ventana de registros
@@ -260,7 +274,7 @@ function VcrearUsuarios(){
     })
     ventanaCrearU.webContents.openDevTools();
     ventanaCrearU.setMenu(null);
-    ventanaCrearU.loadFile('src/vista/registrar-usuarios.html')
+    ventanaCrearU.loadFile('src/registrar-usuarios.html')
 }
 
 ipcMain.handle('crearU', (event, obj) => {
@@ -295,6 +309,58 @@ function Vactualizar(){
     });
 }
 
+//select ventana principal
+ipcMain.handle('consulta', () => {
+    consultarProE()
+ });
+
+function consultarProE(){
+                const sql = 'SELECT * FROM profesionalevaluado';
+                connection.query(sql, (err, results, fields)=>{
+                  if(err){
+                    console.error("error al obtener los datos: ", err);
+                  }else{
+                    console.log("datos obtenidos: ", results);
+                  }
+
+                  mainWindow.webContents.send('select', results)
+                });
+}
+
+ipcMain.handle('consulta2', () => {
+    consultarInvitado()
+ });
+
+function consultarInvitado(){
+                const sql = 'SELECT * FROM profesionalevaluado';
+                connection.query(sql, (err, results, fields)=>{
+                  if(err){
+                    console.error("error al obtener los datos: ", err);
+                  }else{
+                    console.log("datos obtenidos: ", results);
+                  }
+
+                  invitadoWindow.webContents.send('select2', results)
+                });
+}
+
+
+ipcMain.handle('consulta1', () => {
+    consultarProEv()
+ });
+
+function consultarProEv(){
+                const sql = 'SELECT * FROM profesionalevaluador';
+                connection.query(sql, (err, results, fields)=>{
+                  if(err){
+                    console.error("error al obtener los datos: ", err);
+                  }else{
+                    console.log("datos obtenidos: ", results);
+                  }
+
+                  ventanaCrear.webContents.send('select1', results)
+                });
+}
 const nuevoMenu=[
     {
         label: 'File',

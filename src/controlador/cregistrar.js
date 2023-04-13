@@ -14,7 +14,7 @@ let Pro_Dependencia;
 let btnregistrar;
 let ProfesionalEvaluadorProE_Documento;
 
-document.addEventListener("DOMContentLoaded", function() {
+window.onload = function(){
 
     Pro_Documento= document.getElementById("txtdocumentoi")
     Pro_Nombre= document.getElementById("txtninstructor")
@@ -28,42 +28,31 @@ document.addEventListener("DOMContentLoaded", function() {
     ProfesionalEvaluadorProE_Documento= document.getElementById("txtprofev")
     btnregistrar= document.getElementById("btnregistrar")
     btnregistrar.onclick= renderCrearinstructor;
-    //renderGetProducts()
+    renderSelect1()
+};
+
+async function renderSelect1() 
+{
+   await ipcRenderer.invoke('consulta1')   
+}
+
+ipcRenderer.on('select1', (event, results) => {
+
+
+let template=""
+const list=results
+list.forEach((row)=>{
+  template+=`
+  <input>
+  <datalist>
+  <select>
+    <option value="${row.ProE_Documento}">${row.ProE_Nombre}</option>
+  </select>
+  </datalist>
+`
 });
-
-//  async function renderGetProducts() 
-//  {
-//     await ipcRenderer.invoke('get')   
-//  }
-
-/*ipcRenderer.invoke('getCarreras').then((result) => {
-   let { ProE_Documento, ProE_Nombre } = result;
-
-   /*ProE_Documento = ProE_Documento.replace(/(^_)|(_$)/g, '');
-   ProE_Documento = ProE_Documento.split('_');
-   ProE_Nombre = ProE_Nombre.replace(/(^_)|(_$)/g, '');
-   ProE_Nombre = ProE_Nombre.split('_');//
-
-   let carreras = [];
-
-   for (let i = 0; i < ProE_Documento.length; i++) {
-       carreras.push({
-           'ProE_Documento': ProE_Documento[i],
-           'ProE_Nombre': ProE_Nombre[i]
-       });
-   }
-
-   let texto = '';
-
-   for (let i = 0; i < carreras.length; i++) {
-       texto +=
-           `
-           <option value="${carreras[i].ProE_Documento}">${carreras[i].ProE_Nombre}</option>
-           `;
-   }
-
-   select.innerHTML += texto;
-}); */
+ProfesionalEvaluadorProE_Documento.innerHTML = template;
+});
 
 
 async function renderCrearinstructor() {
