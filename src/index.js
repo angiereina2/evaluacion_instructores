@@ -2,7 +2,7 @@ const {app, BrowserWindow, Menu, ipcMain, Notification} =require('electron');
 const connection=require('./conexion/conectar');
 const url=require('url');
 const path =require('path');
-const { lstatSync } = require('fs');
+const { lstatSync, access } = require('fs');
 
 /*if(process.env.NODE_ENV !== 'production'){
 require('electron-reload')(__dirname, {
@@ -17,7 +17,7 @@ let ventanaCrear;
 let ventanaCrearProEV;
 let ventanaCrearCompromisos;
 let ventanaCrearU;
-let Vseguimiento;
+let VentanaSeguimientoreporte;
 
 function ventanaindex(){
     mainWindow = new BrowserWindow({
@@ -118,29 +118,42 @@ ipcMain.handle('crear', (event, obj) => {
   });
 
 //funcion para la ventana de seguimiento
-function Vseguimiento(){
-    vtanaseguimiento=new BrowserWindow({
-        width: 600,
-        height:600,
-        title: 'Seguimiento',
-        webPreferences: {
-            preload: path.join(__dirname, 'controlador/creporte.js'),
+    function ReporteSeguimiento(){
+        VentanaSeguimientoreporte = new BrowserWindow({ 
+            width: 400, 
+            height: 330, 
+            title: 'Consultar Reportes Seguimiento',        
+            webPreferences: {
+            preload: path.join(__dirname, 'controlador/creporteseg.js'),
+                    }
+                })
+           
+        VentanaSeguimientoreporte.setMenu(null);
+        VentanaSeguimientoreporte.loadURL(url.format({
+        pathname: path.join(__dirname, 'vista/seguimiento.html'),
+        protocol:'file',
+        slashes: true
+        })) 
+    
+        VentanaSeguimientoreporte.on('closed', () => {
+            VentanaSeguimientoreporte = null;
+        });
+    }
+        
+    ipcMain.handle('reporteSeg', (event, obj) => {
+        ReporteSeguimiento(obj)
+      });
+    
+    function ReporteSeguimiento(obj)
+    {
+      const sql = "INSERT INTO seguimientodesempeño ('fecha', 'Periodo_Seguimiento', 'Nombre_Evaluado', 'Doc_Evalaudo', 'Nombre_Evaluador', 'Doc_Evalaudor', 'NOmbre_EvaluadorC', 'Doc_EvalaudorC', 'Comprmisos_Funcionales', 'Compromisos_Comportamentales') VALUES (?, ?, ?, ?, ?, ?, ?,?, ?, ?)";  
+      connection.query(sql, obj, (error, results, fields) => {
+        if(error) {
+           console.log(error);
         }
-    })
-    vtanaseguimiento.setMenu(null);
-    vtanaseguimiento.loadFile('src/vista/reporte.html')
-    // ventanaConsultar.on('closed', ()=>{
-    // ventanaConsultar=null;
-    // });
-}
+     });
+    }
 
-ipcMain.handle('get', () => {
-    getProducts()
- });
-
-ipcMain.handle('crear', (event, obj) => {
-    'Repor_segto'(obj)
-  });
 /*  electronIpcMain.on('consultCarreras', (event) => {
     let idCarrera = '', nombreCarrera = '';
   
@@ -303,7 +316,16 @@ const nuevoMenu=[
                 click(){
                     Vactualizar();
                 }
+            },
+            {   
+                label: 'Reporte Seguimiento',
+                accelerator: process.platform=='darwin' ? 'command+R': 'Ctrl+R',
+                click(){
+                    ReporteSeguimiento();
+            
             }
+            },
+
         ]
     }
 ]
