@@ -3,12 +3,35 @@ const connection=require('./conexion/conectar');
 const url=require('url');
 const path =require('path');
 const { lstatSync, access } = require('fs');
+const multer = require('multer');
+const mimeTypes = require('mime-types');
+
+const storage = multer.diskStorage({
+    destination: 'uploads/',
+    filename: function(req, file,cb){
+        cb("", Date.now() + file.originalname + "." + mimeTypes.extension(file.mimetype));        
+    }
+})
+
+const upload = multer({
+    storage: storage
+})
+
+app.getAppMetrics("/",(req,res)=>{
+    console.log(__dirname)
+    res.sendFile(__dirname + "/vista/registrar.html");
+})
 
 /*if(process.env.NODE_ENV !== 'production'){
 require('electron-reload')(__dirname, {
     electron: path.join(__dirname, '../node_modules','.bin','electron')
 })
 }*/
+
+app.post("/files",upload.single('avatar'),(req,res)=>{
+    res.send("Archivo Cargado Correctamente");
+   
+})
 
 let mainWindow;
 let ventlogin;

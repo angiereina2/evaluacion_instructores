@@ -9,10 +9,10 @@
     <title>Registrar</title>
 </head>
 <body>
-    <header>
-      <img alt="Centro para la Industria de la Comunicación Gráfica" height="172px; " id="Header1_headerimg" src="img\logo cenigraf.jpg" style="display: block" width="500px; ">
-        <h1>Crear Nuevos registros de instructores</h1>
-    </header>
+  <header>
+    <img alt="Centro para la Industria de la Comunicación Gráfica" height="172px; " id="Header1_headerimg" src="img\logo cenigraf.jpg" style="display: block" width="500px; ">
+      <h1>Crear Nuevos registros de instructores</h1>
+  </header>
     <form action="">
         <div class="mb-3 mt-3">
           <label for="text" class="form-label">Nombres:</label>
@@ -65,29 +65,11 @@
         </div> 
         <script src="../controlador/cregistrar.js"></script>
         <button type="submit" id="btnregistrar" class="btn btn-primary">Registrar</button>
-      
-      <div class="col-12">
-      <input type="file" class="form-control" name="file" required />
-      </div>
-      <button type="submit">Carga Masiva</button>
-          <table id="synthesetablee" >
-            <thead>
-                <th>Numero identificacion</th>
-                <th>Nombres</th>
-                <th>Apellidos</th>
-                <th>Tipo Id</th>
-                <th>Denominacion del empleo</th>
-                <th>Correo</th>
-                <th>Codigo</th>
-                <th>Grado</th>
-                <th>Dependencia</th>
-                </tr>
-            </thead>
-            <tbody id="synthese-list"> 
-            </tbody>           
-           </table>
-        </div>
-      </div>
+
+        <h1>Carga Archivos</h1>
+        <form action="/files" method="post" enctype="multipart/form-data">
+        <input type="file" name="avatar" id="">
+        <input type="submite" value="Cargar">
   </form>
 </body>
 </html>
