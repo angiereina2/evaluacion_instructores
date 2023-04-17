@@ -7,63 +7,98 @@
     <link rel="stylesheet" href="https://bootswatch.com/5/minty/bootstrap.min.css">
     <link rel="stylesheet" href="./css/style.css">
     <link rel="stylesheet" href="C:/Users/APRENDIZ/Documents/proyecto/evaluacion_instructores/node_modules/@fortawesome/fontawesome-free/css/all.css">
-    <title>Registrar</title>
+    <title>Registrar Compromisos</title>
 </head>
 <body>
     <header>
       <img alt="Centro para la Industria de la Comunicación Gráfica" height="172px; " id="Header1_headerimg" src="img\logo cenigraf.jpg" style="display: block" width="500px; ">
         <h1>Registrar compromisos funcionales y comportamentales</h1>
     </header>
-    <form>
+    <h3>Buscar datos del profesional evaluado:</h3>
+  <input type="text" class="form-control" id="busqueda-proEvaluado" placeholder="Ingrese el numero de cedula del profesional evaluado">
+  <button type="submit" id="btn-buscarComp" class="btn btn-success">Buscar</button>
+    <h3>Compromisos Funcionales</h3>
+    <div class="container">
+    <div class="constainer p-4">
+    <div class="content" style="text-align: center;">
+      <div class="justify-content-center">
+    
+      <table class="table table-hover table-dark">
+          <thead>
+              <tr>
+                  <th scope="col">Nombre Evaluado</th>
+                  <th scope="col">Compromiso No</th>
+                  <th scope="col">Descripcion</th>
+                  <th scope="col">Porcentaje Pactado</th>
+                  <th scope="col">Eliminar</th>
+                  <th scope="col">Actualizar</th>
+              </tr>
+          </thead>
+          <tbody id="tabla-funcionales">
+          <!-- info -->
+         </tbody>
+      </table>
+     
+  </div>
+</div>
+    <h3>Compromisos Comportamentales</h3>
+    
+      <table class="table table-hover table-dark">
+          <thead>
+              <tr>
+                <th scope="col">Nombre Evaluado</th>
+                <th scope="col">Compromiso No</th>
+                <th scope="col">Descripcion</th>
+                <th scope="col">Eliminar</th>
+                <th scope="col">Actualizar</th>
+              </tr>
+          </thead>
+          <tbody id="tabla-comportamentales">
+          <!-- info -->
+        </tbody>
+      </table>
+    
+  </div>
+</div>
+  
+     <form>
         <h1 style= "text-align:center;">Compromisos Funcionales</h1>
         <div class="container">
+          <input type="text" id="idCompFuncional" hidden >
+          <div class="mb-3">
+            <label class="form-label">Compromiso No:</label>
+            <input type="number" class="form-control" id="txtnumcf" placeholder="Ingrese el numero del compromiso">
+          </div>
         <div class="mb-3 mt-3">
-            <label class="form-label">Primero:</label>
+            <label class="form-label">Descripcion:</label>
             <textarea class="form-control" rows="5" id="txtprimerf"></textarea>
           </div>
-          <div class="mb-3 mt-3">
-            <label class="form-label">Segundo:</label>
-            <textarea class="form-control" rows="5" id="txtsegundof"></textarea>
+          <div class="mb-3">
+            <label class="form-label">Porcentaje Pactado:</label>
+            <input type="number" class="form-control" id="txtporcf" placeholder="Ingrese el porcentaje del compromiso">
           </div>
-          <div class="mb-3 mt-3">
-            <label class="form-label">Tercero:</label>
-            <textarea class="form-control" rows="5" id="txttercerof"></textarea>
+          <div class="mb-3">
+            <label class="form-label">Numero de identificacion Evaluado:</label>
+            <input type="number" class="form-control" id="txtdocevaluadocf" placeholder="Ingrese el numero de documento del evaluado">
           </div>
-          <div class="mb-3 mt-3">
-            <label class="form-label">Cuarto:</label>
-            <textarea class="form-control" rows="5" id="txtcuartof"></textarea>
+          <button id="btn-actualizarF">Actualizar</button>
+         
+          <h1 style="text-align: center;">Compromisos Comportamentales:</h1>
+          <input type="text" id="idCompComportamental" hidden >
+          <div class="mb-3">
+            <label class="form-label">Compromiso No:</label>
+            <input type="number" class="form-control" id="txtnumcc" placeholder="Ingrese el numero de compromiso">
           </div>
-          <div class="mb-3 mt-3">
-            <label class="form-label">Quinto:</label>
-            <textarea class="form-control" rows="5" id="txtquintof"></textarea>
+        <div class="mb-3 mt-3">
+            <label class="form-label">Descripcion:</label>
+            <textarea class="form-control" rows="5" id="txtdesccc"></textarea>
           </div>
-          <h1 style="text-align: center;">Compromisos Comportamentales</h1>
-          <div class="mb-3 mt-3">
-            <label class="form-label">Primero:</label>
-            <textarea class="form-control" rows="5" id="txtprimerc"></textarea>
+          <div class="mb-3">
+            <label class="form-label">Numero de identificacion Evaluado:</label>
+            <input type="number" class="form-control" id="txtdocumentocc" placeholder="Ingrese el numero de documento del evaluado">
           </div>
-          <div class="mb-3 mt-3">
-            <label class="form-label">Segundo:</label>
-            <textarea class="form-control" rows="5" id="txtsegundoc"></textarea>
-          </div>
-          <div class="mb-3 mt-3">
-            <label class="form-label">Tercero:</label>
-            <textarea class="form-control" rows="5" id="txtterceroc"></textarea>
-          </div>
-          <div class="mb-3 mt-3">
-            <label class="form-label">Cuarto:</label>
-            <textarea class="form-control" rows="5" id="txtcuartoc"></textarea>
-          </div>
-          <div class="mb-3 mt-3">
-            <label class="form-label">Quinto:</label>
-            <textarea class="form-control" rows="5" id="txtquintoc"></textarea>
-          </div>
-          <select id="selecticompromisos">
-            <label>Seleccione el instructor:</label>
-            <option>luz maria</option>
-          </select>
         <p></p>
-        <button type="submit" id="btnregistrar-compromisos" class="btn btn-primary"> <i class="fas fa-folder-open"></i> Registrar</button>
+        <button type="submit" id="btn-actualizarC" class="btn btn-primary"> <i class="fas fa-folder-open"></i> Actualizar</button>
       </div>
     </form>
       <script src="../controlador/crearcompromisos.js"></script>

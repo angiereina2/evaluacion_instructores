@@ -131,6 +131,17 @@ input {
 	cursor: pointer;
 }
 
+.table {
+    border: 1px solid black;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+.container{
+   position: relative;
+    align-content: center;
+}
+
 .form-group{
     position: relative;
 }

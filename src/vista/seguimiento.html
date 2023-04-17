@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Reporte Seguimiento</title>
+  <link rel="stylesheet" href="https://bootswatch.com/5/minty/bootstrap.min.css">
+  <link rel="stylesheet" href="">
+  <link rel="stylesheet" href="./css/style.css">
+  <link rel="stylesheet" href="C:/Users/APRENDIZ/Documents/proyecto/evaluacion_instructores/node_modules/@fortawesome/fontawesome-free/css/all.css">
+</head>
+<body>
+  <header>
+    <img alt="Centro para la Industria de la Comunicación Gráfica" height="172px; " id="Header1_headerimg" src="img\logo cenigraf.jpg" style="display: block" width="500px; ">
+      <h1>Consulta y Modificacion de Reporte de Seguimiento</h1>
+  </header>
+  <h3>Buscar datos del profesional evaluador:</h3>
+  <input type="text" class="form-control" id="busqueda-proEvaluado" placeholder="Ingrese el número de cédula del profesional evaluado">
+  <button type="submit" id="btn-buscar" class="btn btn-success">Buscar</button>
+  <!-- <script>
+    document.getElementById('btn-buscar').addEventListener('click', ()=>{
+      const resultBusqueda=document.getElementById('busqueda-proEvaluado').value;
+      buscarEvaluado(resultBusqueda);
+    });
+  </script> -->
+<h3>Profesionales Evaluados</h3>
+  <div class="container">
+    <div class="constainer p-4">
+    <div class="content" style="text-align: center;">
+      <div class="justify-content-center">
+    
+      <table class="table table-hover table-dark">
+          <thead>
+              <tr>
+                  <th scope="col">Documento</th>
+                  <th scope="col">Nombre</th>
+                  <th scope="col">Apellido</th>
+                  <th scope="col">Rol</th>
+                  <th scope="col">Dependencia</th>
+                  <th scope="col">Profesional Evaluador</th>
+                  <th scope="col">Profesional Evaluador Comision (En caso de constituir)</th>
+                  <th scope="col">Actualizar</th>
+              </tr>
+          </thead>
+          <tbody id="tabla-evaluados">
+          <!-- info -->
+         </tbody>
+      </table>
+     
+  </div>
+</div>
+</div>
+</div>
+  <form>
+      <!-- <div class="mb-3 mt-3">
+        <label for="text" class="form-label">Fecha</label>
+        <input type="date" class="form-control" id="txtfechaEva" placeholder="00/00/0000" name="txtfechaEva">
+      </div>
+      <div class="mb-3">
+        <label class="form-label">Periodo</label>
+        <i<select class="form-select" id="txtperiodoseg">
+          <option>Periodo I</option>
+          <option>Periodo II</option>
+      </select>
+      </div>
+      <div class="mb-3">
+          <label for="text" class="form-label">Version</label>
+          <input type="date" class="form-control" id="txtversion" placeholder="" name="txtversion">
+      </div> -->
+
+      <!-- pause -->
+      <div class="mb-3">
+          <label class="form-label">Nombre completo del evaluado </label>
+          <input type="number" class="form-control" id="txtnombreEvaluado" value="" placeholder="Ingrese Nombre Completo" name="txtnombreEvaluado">
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Tipo de identificacion  </label>
+          <input type="number" class="form-control" id="txttipoidev" placeholder="Ingrese el tipo de identificacion" name="txtnombreEvaluado">
+        </div>
+      <div class="mb-3">
+          <label class="form-label">Numero Identificacion:</label>
+          <input type="text" class="form-control" id="txtDoc_Evaluado" placeholder="Ingrese el numero de documento" name="txtDoc_Evaluado">
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Denominacion del empleo:</label>
+          <input type="text" class="form-control" id="txtdemev" placeholder="Ingrese la Denominacion del empleo" name="txtDoc_Evaluado">
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Codigo:</label>
+          <input type="text" class="form-control" id="txtcodev" placeholder="Ingrese el codigo" name="txtDoc_Evaluado">
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Grado:</label>
+          <input type="text" class="form-control" id="txtgradev" placeholder="Ingrese el grado" name="txtDoc_Evaluado">
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Dependencia:</label>
+          <input type="text" class="form-control" id="txtdependenciaev" placeholder="Ingrese la Dependencia" name="txtDoc_Evaluado">
+        </div>
+      <div class="mb-3">
+          <label class="form-label">Nombre completo Evaluador:</label>
+          <input type="email" class="form-control" id="txtNombreevaluador" placeholder="Ingrese Nombre Completo" name="txtNombreevaluador">
+      </div>
+      <div class="mb-3">
+        <label class="form-label">Tipo de identificacion:</label>
+        <input type="email" class="form-control" id="txttipoidevr" placeholder="Ingrese el tipo de identificacion" name="txtNombreevaluador">
+    </div>
+      <div class="mb-3">
+          <label class="form-label">Numero Identificacion:</label>
+          <input type="number" class="form-control" id="txtDoc_Evaluador" placeholder="Ingrese el Numero Identificacion" name="txtDoc_Evaluador">
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Denominacion del empleo:</label>
+          <input type="number" class="form-control" id="txtdemevr" placeholder="Ingrese la Denominacion del empleo" name="txtDoc_Evaluador">
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Codigo:</label>
+          <input type="number" class="form-control" id="txtcodevr" placeholder="Ingrese el codigo" name="txtDoc_Evaluador">
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Grado:</label>
+          <input type="number" class="form-control" id="txtgradevr" placeholder="Ingrese el grado" name="txtDoc_Evaluador">
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Dependencia:</label>
+          <input type="number" class="form-control" id="txtdepenevr" placeholder="Ingrese la Dependencia" name="txtDoc_Evaluador">
+        </div>
+      <div class="mb-3">
+          <label class="form-label">Nombre Evaluador Comisionado:</label>
+          <input type="number" class="form-control" id="txtNombreevaluadorC" placeholder="Nombre Completo Evaluador Comisionado:" name="txtNombreevaluadorC">
+      </div>
+      <div class="mb-3">
+        <label class="form-label">Tipo de Identificacion:</label>
+        <input type="text" class="form-control" id="txttipoievc" placeholder="Ingrese el tipo de identificacion" name="txtDoc_EvaluadorC">
+    </div>
+      <div class="mb-3">
+          <label class="form-label">Numero Identificacion:</label>
+          <input type="text" class="form-control" id="txtDoc_EvaluadorC" placeholder="Ingrese Numero Identificacion" name="txtDoc_EvaluadorC">
+      </div>
+      <div class="mb-3">
+        <label class="form-label">Denominacion del empleo:</label>
+        <input type="number" class="form-control" id="txtdemevc" placeholder="Ingrese la Denominacion del empleo" name="txtDoc_Evaluador">
+      </div>
+      <div class="mb-3">
+        <label class="form-label">Codigo:</label>
+        <input type="number" class="form-control" id="txtcodevc" placeholder="Ingrese el codigo" name="txtDoc_Evaluador">
+      </div>
+      <div class="mb-3">
+        <label class="form-label">Grado:</label>
+        <input type="number" class="form-control" id="txtgradevc" placeholder="Ingrese el grado" name="txtDoc_Evaluador">
+      </div>
+      <div class="mb-3">
+        <label class="form-label">Dependencia:</label>
+        <input type="number" class="form-control" id="txtdepenevc" placeholder="Ingrese la Dependencia" name="txtDoc_Evaluador">
+      </div>
+      
+      <button type="submit" id="btnactualizarrep" class="btn btn-primary">Actualizar</button>
+        
+</form>
+<script src="../controlador/creporteseg.js"></script>
+  <!-- <script>
+    const form = document.querySelector('form');
+    form.addEventListener('submit',e => {
+      
+        const txtfechaEva = document.querySelector('#Fecha').value;
+        const txtperiodoseg = document.querySelector('#Periodo').value;
+        const txtversion = document.querySelector('#Version').value;
+        const txtnombreEvaluado = document.querySelector('#Nombre Completo').value;
+        const txtDoc_Evaluado = document.querySelector('#Numero Identificacion').value;
+        const txtNombreevaluador = document.querySelector('#Nombre Evaluador').value;
+        const txtDoc_Evaluador = document.querySelector('#Numero Identificacion').value;
+        const txtNombreevaluadorC = document.querySelector('#Nombre Evaluador Comisionado').value;
+        const txtDoc_EvaluadorC = document.querySelector('#Numero Identificacion').value;
+        const txtcompromisosf = document.querySelector('#Compromisos Funcionales').value;
+        const txtcompromisosc = document.querySelector('#Compromisos Comportamentales').value;
+        console.log(txtfechaEva, txtperiodoseg, txtversion, txtnombreEvaluado, txtDoc_Evaluado, txtNombreevaluador, txtDoc_Evaluador, txtNombreevaluadorC, txtDoc_EvaluadorC, txtcompromisosf, txtcompromisosc);
+
+        e.preventDefault();    
+        
+    });
+
+  </script> -->
+
+</body>
+</html>

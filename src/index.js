@@ -18,6 +18,7 @@ let ventanaCrear;
 let ventanaCrearProEV;
 let ventanaCrearCompromisos;
 let ventanaCrearU;
+let VentanaSeguimientoreporte;
 let user;
 
 function ventanaindex(){
@@ -26,9 +27,10 @@ function ventanaindex(){
         height: 1000,
         title: 'Inicio',
         webPreferences:{
-            // contextIsolation : false,
+             contextIsolation : false,
+            enableRemoteModule: true,
             nodeIntegration : true, 
-            preload: path.join(__dirname, 'select.js'),
+            preload: path.join(__dirname, 'funcional.js'),
     }
     
     }) 
@@ -261,6 +263,184 @@ function VcrearCompromisos(){
     ventanaCrearCompromisos.loadFile('src/vista/registrar-compromisos.html')
 }
 
+/*function modalFuncional(){
+  ipcRenderer.on('showModal', ()=>{
+      const ventanamodalF= new BrowserWindow({
+          width: 400,
+          height: 300,
+          modal: true, 
+          parent: RemotePlayback.getCurrentWindow(),
+          webPreferences: {
+              nodeIntegration: true
+          }
+      })
+      ventanamodalF.loadFile('vista/modal_compromisos.html')
+      ventanamodalF.setMenu(null);
+      ventanamodalF.show()
+  })
+  }
+
+ipcMain.on('abrirmodalF', (event) =>{
+  modalFuncional();
+  ventanaCrearCompromisos.webContents.send('showModal')
+});*/
+
+//consultar funcionales
+ipcMain.handle('getCompF', () => {
+  getFuncionales()
+});
+
+function getFuncionales()
+{
+  
+  connection.query('SELECT * FROM compromisosfucionales inner join profesionalevaluado on profesionalevaluado.Pro_Documento=compromisosfucionales.ProfesionalEvaluadoPro_Documento', (error, results, fields) => {
+    if (error){
+      console.log(error);
+    }
+    
+    ventanaCrearCompromisos.webContents.send('funcionales', results)
+  });  
+}
+
+//consultar comportamentales
+ipcMain.handle('getCompC', () => {
+  getComportamentales()
+});
+
+function getComportamentales()
+{
+  
+  connection.query('SELECT * FROM compromisoscomportamentales inner join profesionalevaluado on profesionalevaluado.Pro_Documento=compromisoscomportamentales.ProfesionalEvaluadoPro_Documento', (error, results, fields) => {
+    if (error){
+      console.log(error);
+    }
+    
+    ventanaCrearCompromisos.webContents.send('comportamentales', results)
+  });  
+}
+
+//Eliminar
+ipcMain.handle('eliminar_funcional', (event, obj) => {
+  EliminarCompF(obj)
+});
+
+function EliminarCompF(obj)
+{
+  const { ComF_Id }  = obj
+  const sql = "DELETE FROM compromisosfucionales WHERE ComF_Id = ?"
+  connection.query(sql, ComF_Id, (error, results, fields) => {
+    if(error) {
+       console.log(error);
+    }
+  });
+}
+
+ipcMain.handle('eliminar_comportamental', (event, obj) => {
+  EliminarCompC(obj)
+});
+
+function EliminarCompC(obj)
+{
+  const { ComC_Id }  = obj
+  const sql = "DELETE FROM compromisoscomportamentales WHERE ComC_Id = ?"
+  connection.query(sql, ComC_Id, (error, results, fields) => {
+    if(error) {
+       console.log(error);
+    }
+  });
+}
+
+//Actualizar
+ipcMain.handle('mostrarF', (event, obj) => {
+  mostrarFuncional(obj)    
+});
+
+
+ipcMain.handle('Actualizarf', (event, obj) => {
+  actualizarCF(obj)    
+});
+
+function mostrarFuncional(obj)
+{
+  let { ComF_Id } = obj 
+  let sql = "SELECT * FROM compromisosfucionales WHERE ComF_Id = ?"
+  connection.query(sql, ComF_Id, (error, results, fields) => {
+    if (error){
+      console.log(error);
+    }
+    console.log(results)
+    ventanaCrearCompromisos.webContents.send('Cfuncional', results[0])
+  });
+}
+
+function actualizarCF(obj) 
+{
+   let { ComF_Id, ComF_Numero, ComF_Descripcion, ComF_PorPactado } = obj
+   const sql = "UPDATE compromisosfucionales SET ComF_Numero=?, ComF_Descripcion=?, ComF_PorPactado=? WHERE ComF_Id=?";  
+   connection.query(sql, [ComF_Numero, ComF_Descripcion, ComF_PorPactado, ComF_Id], (error, results, fields) => {
+     if(error) {
+        console.log(error);
+     }
+      
+   });
+}
+
+ipcMain.handle('mostrarC', (event, obj) => {
+  mostrarComportamental(obj)    
+});
+
+
+ipcMain.handle('Actualizarc', (event, obj) => {
+  actualizarCC(obj)    
+});
+
+function mostrarComportamental(obj)
+{
+  let { ComC_Id } = obj 
+  let sql = "SELECT * FROM compromisoscomportamentales WHERE ComC_Id = ?"
+  connection.query(sql, ComC_Id, (error, results, fields) => {
+    if (error){
+      console.log(error);
+    }
+    console.log(results)
+    ventanaCrearCompromisos.webContents.send('CComportamental', results[0])
+  });
+}
+
+function actualizarCC(obj) 
+{
+   let { ComC_Id, ComC_Numero, ComC_Descripcion } = obj
+   const sql = "UPDATE compromisoscomportamentales SET ComC_Numero=?, ComC_Descripcion=? WHERE ComC_Id=?";  
+   connection.query(sql, [ComC_Numero, ComC_Descripcion, ComC_Id], (error, results, fields) => {
+     if(error) {
+        console.log(error);
+     }
+      
+   });
+}
+
+//Busqueda
+/*ipcMain.on('buscarev', (event, cadenaBusqueda) => {
+  connection.query("SELECT * FROM profesionalevaluado WHERE Pro_Documento LIKE ?", '%${cadenaBusqueda}%', (err, result) =>{
+    if(err){
+      console.error('error en la busqueda de base de datos: ', err);
+      event.reply('resultado-busqueda', {error: true});
+      return;
+    }
+
+    event.reply('resultado-busqueda', {error: false, result})
+  })
+});
+
+function buscarEvaluado(){
+ connection.query("SELECT * FROM profesionalevaluado WHERE Pro_Documento LIKE ?"), ['%${resultBusqueda}%'], (err, result) =>{
+  if(err) throw err;
+  console.log('Los resultados de busqueda son')
+
+  VentanaSeguimientoreporte.webContents.send('busqueda', result)
+ }
+}*/
+
 //ventana crear usuarios
 function VcrearUsuarios(){
     ventanaCrearU=new BrowserWindow({
@@ -307,6 +487,98 @@ function Vactualizar(){
     });
 }
 
+//funcion para la ventana de seguimiento
+function ReporteSeguimiento(){
+    VentanaSeguimientoreporte = new BrowserWindow({ 
+        width: 400, 
+        height: 330, 
+        title: 'Consultar Reportes Seguimiento',        
+        webPreferences: {
+        preload: path.join(__dirname, 'controlador/creporteseg.js'),
+                }
+            })
+            VentanaSeguimientoreporte.setMenu(null);
+            VentanaSeguimientoreporte.loadFile('src/vista/seguimiento.html');
+}
+    
+/*ipcMain.handle('reporteSeg', (event, obj) => {
+    ReporteSeguimiento(obj)
+  });
+
+function ReporteSeguimiento(obj)
+{
+  const sql = "INSERT INTO seguimientodesempeño ('fecha', 'Periodo_Seguimiento', 'Nombre_Evaluado', 'Doc_Evalaudo', 'Nombre_Evaluador', 'Doc_Evalaudor', 'NOmbre_EvaluadorC', 'Doc_EvalaudorC', 'Comprmisos_Funcionales', 'Compromisos_Comportamentales') VALUES (?, ?, ?, ?, ?, ?, ?,?, ?, ?)";  
+  connection.query(sql, obj, (error, results, fields) => {
+    if(error) {
+       console.log(error);
+    }
+ });
+}*/
+
+//Consultar
+ipcMain.handle('getEvaluado', () => {
+  getProEvaluados()
+});
+
+function getProEvaluados()
+{
+  
+  connection.query('SELECT * FROM profesionalevaluado inner join profesionalevaluador on profesionalevaluador.ProE_Documento=profesionalevaluado.ProfesionalEvaluadorProE_Documento inner join profesionalevaluadorcomision on profesionalevaluadorcomision.C_Documento=profesionalevaluado.ProfesionalComision', (error, results, fields) => {
+    if (error){
+      console.log(error);
+    }
+    
+    VentanaSeguimientoreporte.webContents.send('evaluados', results)
+  });  
+}
+//Actualizar informacion de profesionales evaluados
+ipcMain.handle('mostrarEvaluado', (event, obj) => {
+  mostrarEvaluados(obj)    
+});
+
+
+ipcMain.handle('ActualizarEvaluados', (event, obj) => {
+  actualizarProEvaluados(obj)    
+});
+
+function mostrarEvaluados(obj)
+{
+  let { Pro_Documento } = obj 
+  let sql = "SELECT * FROM profesionalevaluado inner join profesionalevaluador on profesionalevaluador.ProE_Documento=profesionalevaluado.ProfesionalEvaluadorProE_Documento inner join profesionalevaluadorcomision on profesionalevaluadorcomision.C_Documento=profesionalevaluado.ProfesionalComision WHERE Pro_Documento = ?"
+  connection.query(sql, Pro_Documento, (error, results, fields) => {
+    if (error){
+      console.log(error);
+    }
+    console.log(results)
+    VentanaSeguimientoreporte.webContents.send('proEvaluados', results[0])
+  });
+}
+
+function actualizarProEvaluados(obj) 
+{
+   let { Pro_Documento, ComC_Numero, ComC_Descripcion } = obj
+   const sql = "UPDATE profesionalevaluado SET ComC_Numero=?, ComC_Descripcion=? inner join profesionalevaluador on profesionalevaluador.ProE_Documento=profesionalevaluado.ProfesionalEvaluadorProE_Documento inner join profesionalevaluadorcomision on profesionalevaluadorcomision.C_Documento=profesionalevaluado.ProfesionalComision WHERE Pro_Documento = ?";  
+   connection.query(sql, [ComC_Numero, ComC_Descripcion, Pro_Documento], (error, results, fields) => {
+     if(error) {
+        console.log(error);
+     }
+      
+   });
+}
+
+/* ipcMain.handle('buscarev', () => {
+    buscarEvaluado()
+ });
+
+ function buscarEvaluado(){
+   connection.query("SELECT * FROM profesionalevaluado WHERE Pro_Documento LIKE ?"), ['%${resultBusqueda}%'], (err, result) =>{
+    if(err) throw err;
+    console.log('Los resultados de busqueda son')
+
+    VentanaSeguimientoreporte.webContents.send('busqueda', result)
+   }
+ }*/
+
 //select ventana principal
 ipcMain.handle('consulta', () => {
     consultarProE()
@@ -346,6 +618,28 @@ function consultarInvitado(){
 ipcMain.handle('consulta1', () => {
     consultarProEv()
  });
+
+
+ //prueba seleccion de archivos
+ const ExcelJS = require('exceljs');
+const { error } = require('console');
+
+function crearArchivoExcel(ruta, datos) {
+  const workbook = new ExcelJS.Workbook();
+  const worksheet = workbook.addWorksheet('Mi hoja de cálculo');
+  worksheet.addRow(['Nombre', 'Edad']);
+  datos.forEach((fila) => {
+    worksheet.addRow(fila);
+  });
+  const buffer = workbook.xlsx.writeBuffer();
+  require('fs').writeFileSync(ruta, buffer);
+}
+  
+ipcMain.handle('crear-archivo-excel', (event, ruta, datos) => {
+    
+  crearArchivoExcel(ruta, datos);
+});
+
 
 function consultarProEv(){
                 const sql = 'SELECT * FROM profesionalevaluador';
@@ -410,6 +704,14 @@ const nuevoMenu=[
                 click(){
                     Vactualizar();
                 }
+            },
+            {   
+                label: 'Reporte Seguimiento',
+                accelerator: process.platform=='darwin' ? 'command+R': 'Ctrl+R',
+                click(){
+                    ReporteSeguimiento();
+            
+            }
             }
         ]
     }

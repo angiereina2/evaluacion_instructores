@@ -46,7 +46,7 @@ const con = mysql.createConnection({
     //let cedulaev = document.getElementById("txt-cedula-evaluado");
     let cedulaev;
     //document.addEventListener("DOMContentLoaded", function() {
-    cedulaev =document.getElementById("myselect");
+    cedulaev =652314987;
     
     
 	// -> Query data from MySQL
@@ -88,11 +88,11 @@ const con = mysql.createConnection({
             //Compromisos comportamentales
             worksheet.getRow(28).getCell(3).value=jsonCustomers[0].ComC_Descripcion;
 
-        workbook.xlsx.writeFile(fileName);
+        //workbook.xlsx.writeFile(fileName);
 
-       // const buffer =  await workbook.xlsx.writeBuffer(fileName);
+        const buffer =  await workbook.xlsx.writeBuffer(fileName);
 
-        /*const options={
+        const options={
             title: 'Seleccione la carpeta de descarga',
             properties: ['openDirectory']
         };
@@ -104,7 +104,7 @@ const con = mysql.createConnection({
             require('fs').writeFileSync(filePath, buffer);
 
             console.log(`El archivo se ha guardado correctamente en: ${filePath}`);
-        }*/
+        }
 
         }
 
@@ -115,8 +115,17 @@ const con = mysql.createConnection({
 });
 
 }
+let guardar;
+window.onload = function(){
+    document.getElementById("btnguardar").addEventListener('click', (e) => {
+        e.preventDefault();
+        crearExcel();
+    });
+    //guardar.onclick=descargarArchivoExcel;
+    
+}
 
-module.exports=crearExcel;
+//module.exports=crearExcel;
 
 function holaaa(){
     let pol=document.getElementById("myselect1");
