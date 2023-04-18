@@ -39,24 +39,25 @@
                 </datalist>
 
               </div>
-              <!-- <script src="../select.js"></script> -->
+               <script src="../select.js"></script> 
         </div>
         <p class="text-center" style="margin-top: 40px;">
           <!-- <div class="col-12">
             <input type="file" class="form-control" name="file" required />
             </div> -->
-        <button id="btnguardar" class="btn btn-success"><i class="fas fa-download"></i> &nbsp; Guardar</button>
+        <button type="submit" id="btnguardar" class="btn btn-success"><i class="fas fa-download"></i> &nbsp; Guardar</button>
         &nbsp; &nbsp;
         <button type="submit" id= "btnenviarc" class="btn btn-danger">&nbsp; Enviar</button>
       </p>
     </form>
     
-    <script src="../funcional.js"></script>
-    <!-- <script>
-      document.getElementById('btnguardar').addEventListener('click', ()=>{
-        crearExcel();
+     <script src="../funcional.js"></script>
+     <!--<script>
+      document.getElementById('btnguardar').addEventListener('click', (e)=>{
+        e.preventDefault();
+        descargarArchivo();
       });
-    </script> -->
+    </script>  -->
     <p></p>
 <p class="text-center">
     <button type="submit" id="btnlogout" class="btn btn-danger" style="float: center;"> <i class="fas fa-sign-out"></i> &nbsp; Cerrar Sesión</button>

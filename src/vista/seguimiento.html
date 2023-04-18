@@ -15,9 +15,9 @@
     <img alt="Centro para la Industria de la Comunicación Gráfica" height="172px; " id="Header1_headerimg" src="img\logo cenigraf.jpg" style="display: block" width="500px; ">
       <h1>Consulta y Modificacion de Reporte de Seguimiento</h1>
   </header>
-  <h3>Buscar datos del profesional evaluador:</h3>
+  <!-- <h3>Buscar datos del profesional evaluador:</h3>
   <input type="text" class="form-control" id="busqueda-proEvaluado" placeholder="Ingrese el número de cédula del profesional evaluado">
-  <button type="submit" id="btn-buscar" class="btn btn-success">Buscar</button>
+  <button type="submit" id="btn-buscar" class="btn btn-success">Buscar</button> -->
   <!-- <script>
     document.getElementById('btn-buscar').addEventListener('click', ()=>{
       const resultBusqueda=document.getElementById('busqueda-proEvaluado').value;
@@ -51,7 +51,7 @@
   </div>
 </div>
 </div>
-</div>
+
   <form>
       <!-- <div class="mb-3 mt-3">
         <label for="text" class="form-label">Fecha</label>
@@ -70,17 +70,18 @@
       </div> -->
 
       <!-- pause -->
+      <h3>Datos del Profesional Evaluado</h3>
       <div class="mb-3">
           <label class="form-label">Nombre completo del evaluado </label>
-          <input type="number" class="form-control" id="txtnombreEvaluado" value="" placeholder="Ingrese Nombre Completo" name="txtnombreEvaluado">
+          <input type="text" class="form-control" id="txtnombreEvaluado" placeholder="Ingrese Nombre Completo" name="txtnombreEvaluado">
         </div>
         <div class="mb-3">
           <label class="form-label">Tipo de identificacion  </label>
-          <input type="number" class="form-control" id="txttipoidev" placeholder="Ingrese el tipo de identificacion" name="txtnombreEvaluado">
+          <input type="text" class="form-control" id="txttipoidev" placeholder="Ingrese el tipo de identificacion" name="txtnombreEvaluado">
         </div>
       <div class="mb-3">
           <label class="form-label">Numero Identificacion:</label>
-          <input type="text" class="form-control" id="txtDoc_Evaluado" placeholder="Ingrese el numero de documento" name="txtDoc_Evaluado">
+          <input type="number" class="form-control" id="txtDoc_Evaluado" placeholder="Ingrese el numero de documento" name="txtDoc_Evaluado">
         </div>
         <div class="mb-3">
           <label class="form-label">Denominacion del empleo:</label>
@@ -88,23 +89,24 @@
         </div>
         <div class="mb-3">
           <label class="form-label">Codigo:</label>
-          <input type="text" class="form-control" id="txtcodev" placeholder="Ingrese el codigo" name="txtDoc_Evaluado">
+          <input type="number" class="form-control" id="txtcodev" placeholder="Ingrese el codigo" name="txtDoc_Evaluado">
         </div>
         <div class="mb-3">
           <label class="form-label">Grado:</label>
-          <input type="text" class="form-control" id="txtgradev" placeholder="Ingrese el grado" name="txtDoc_Evaluado">
+          <input type="number" class="form-control" id="txtgradev" placeholder="Ingrese el grado" name="txtDoc_Evaluado">
         </div>
         <div class="mb-3">
           <label class="form-label">Dependencia:</label>
           <input type="text" class="form-control" id="txtdependenciaev" placeholder="Ingrese la Dependencia" name="txtDoc_Evaluado">
         </div>
+        <h3>Datos del Profesional Evaluador</h3>
       <div class="mb-3">
           <label class="form-label">Nombre completo Evaluador:</label>
-          <input type="email" class="form-control" id="txtNombreevaluador" placeholder="Ingrese Nombre Completo" name="txtNombreevaluador">
+          <input type="text" class="form-control" id="txtNombreevaluador" placeholder="Ingrese Nombre Completo" name="txtNombreevaluador">
       </div>
       <div class="mb-3">
         <label class="form-label">Tipo de identificacion:</label>
-        <input type="email" class="form-control" id="txttipoidevr" placeholder="Ingrese el tipo de identificacion" name="txtNombreevaluador">
+        <input type="text" class="form-control" id="txttipoidevr" placeholder="Ingrese el tipo de identificacion" name="txtNombreevaluador">
     </div>
       <div class="mb-3">
           <label class="form-label">Numero Identificacion:</label>
@@ -112,7 +114,7 @@
         </div>
         <div class="mb-3">
           <label class="form-label">Denominacion del empleo:</label>
-          <input type="number" class="form-control" id="txtdemevr" placeholder="Ingrese la Denominacion del empleo" name="txtDoc_Evaluador">
+          <input type="text" class="form-control" id="txtdemevr" placeholder="Ingrese la Denominacion del empleo" name="txtDoc_Evaluador">
         </div>
         <div class="mb-3">
           <label class="form-label">Codigo:</label>
@@ -124,11 +126,12 @@
         </div>
         <div class="mb-3">
           <label class="form-label">Dependencia:</label>
-          <input type="number" class="form-control" id="txtdepenevr" placeholder="Ingrese la Dependencia" name="txtDoc_Evaluador">
+          <input type="text" class="form-control" id="txtdepenevr" placeholder="Ingrese la Dependencia" name="txtDoc_Evaluador">
         </div>
+        <h3>Datos del profesional Evaluador Comisionado (En caso de constituir)</h3>
       <div class="mb-3">
           <label class="form-label">Nombre Evaluador Comisionado:</label>
-          <input type="number" class="form-control" id="txtNombreevaluadorC" placeholder="Nombre Completo Evaluador Comisionado:" name="txtNombreevaluadorC">
+          <input type="text" class="form-control" id="txtNombreevaluadorC" placeholder="Nombre Completo Evaluador Comisionado:" name="txtNombreevaluadorC">
       </div>
       <div class="mb-3">
         <label class="form-label">Tipo de Identificacion:</label>
@@ -136,11 +139,11 @@
     </div>
       <div class="mb-3">
           <label class="form-label">Numero Identificacion:</label>
-          <input type="text" class="form-control" id="txtDoc_EvaluadorC" placeholder="Ingrese Numero Identificacion" name="txtDoc_EvaluadorC">
+          <input type="number" class="form-control" id="txtDoc_EvaluadorC" placeholder="Ingrese Numero Identificacion" name="txtDoc_EvaluadorC">
       </div>
       <div class="mb-3">
         <label class="form-label">Denominacion del empleo:</label>
-        <input type="number" class="form-control" id="txtdemevc" placeholder="Ingrese la Denominacion del empleo" name="txtDoc_Evaluador">
+        <input type="text" class="form-control" id="txtdemevc" placeholder="Ingrese la Denominacion del empleo" name="txtDoc_Evaluador">
       </div>
       <div class="mb-3">
         <label class="form-label">Codigo:</label>
@@ -152,12 +155,13 @@
       </div>
       <div class="mb-3">
         <label class="form-label">Dependencia:</label>
-        <input type="number" class="form-control" id="txtdepenevc" placeholder="Ingrese la Dependencia" name="txtDoc_Evaluador">
+        <input type="text" class="form-control" id="txtdepenevc" placeholder="Ingrese la Dependencia" name="txtDoc_Evaluador">
       </div>
       
       <button type="submit" id="btnactualizarrep" class="btn btn-primary">Actualizar</button>
         
 </form>
+</div>
 <script src="../controlador/creporteseg.js"></script>
   <!-- <script>
     const form = document.querySelector('form');

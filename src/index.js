@@ -27,21 +27,21 @@ function ventanaindex(){
         height: 1000,
         title: 'Inicio',
         webPreferences:{
-             contextIsolation : false,
-            enableRemoteModule: true,
+            /* contextIsolation : false,
+            enableRemoteModule: true,*/
             nodeIntegration : true, 
-            preload: path.join(__dirname, 'funcional.js'),
+            preload: path.join(__dirname, 'select.js'),
     }
     
     }) 
     //descargar archivo
-    mainWindow.loadURL(`file://${__dirname}/funcional.js`);
+    /*mainWindow.loadURL(`file://${__dirname}/funcional.js`);
     ipcMain.on("download", (event, info) => {
         download(BrowserWindow.getFocusedWindow(), info.url, info.properties)
             .then(dl => mainWindow.webContents.send("download complete", dl.getSavePath()));
-    });
+    });*/
 
-    mainWindow.webContents.openDevTools()
+    //mainWindow.webContents.openDevTools()
     mainWindow.loadFile('src/vista/index.html')
     const prinmenu=Menu.buildFromTemplate(nuevoMenu);
     Menu.setApplicationMenu(prinmenu);
@@ -556,9 +556,9 @@ function mostrarEvaluados(obj)
 
 function actualizarProEvaluados(obj) 
 {
-   let { Pro_Documento, ComC_Numero, ComC_Descripcion } = obj
-   const sql = "UPDATE profesionalevaluado SET ComC_Numero=?, ComC_Descripcion=? inner join profesionalevaluador on profesionalevaluador.ProE_Documento=profesionalevaluado.ProfesionalEvaluadorProE_Documento inner join profesionalevaluadorcomision on profesionalevaluadorcomision.C_Documento=profesionalevaluado.ProfesionalComision WHERE Pro_Documento = ?";  
-   connection.query(sql, [ComC_Numero, ComC_Descripcion, Pro_Documento], (error, results, fields) => {
+   let { Pro_Documento, Pro_Nombre, Pro_TipoId, Pro_Rol, Pro_Codigo, Pro_Grado, Pro_Dependencia, ProfesionalEvaluadorProE_Documento, ProfesionalComision, ProE_Nombre, ProE_TipoId, ProE_Rol, ProE_Codigo, ProE_Grado, ProE_Dependencia, C_Nombre, C_TipoId, C_Rol, C_Codigo, C_Grado, C_Dependencia } = obj
+   const sql = "UPDATE profesionalevaluado inner join profesionalevaluador on profesionalevaluador.ProE_Documento=profesionalevaluado.ProfesionalEvaluadorProE_Documento inner join profesionalevaluadorcomision on profesionalevaluadorcomision.C_Documento=profesionalevaluado.ProfesionalComision SET profesionalevaluado.Pro_Nombre=?, profesionalevaluado.Pro_TipoId=?, profesionalevaluado.Pro_Rol=?, profesionalevaluado.Pro_Codigo=?, profesionalevaluado.Pro_Grado=?, profesionalevaluado.Pro_Dependencia=?, profesionalevaluado.ProfesionalEvaluadorProE_Documento=?, profesionalevaluado.ProfesionalComision=?, profesionalevaluador.ProE_Nombre=?, profesionalevaluador.ProE_Tipoid=?, profesionalevaluador.ProE_Rol=?, profesionalevaluador.ProE_Codigo=?, profesionalevaluador.ProE_Grado=?, profesionalevaluador.ProE_Dependencia=?, profesionalevaluadorcomision.C_Nombre=?, profesionalevaluadorcomision.C_Tipoid=?, profesionalevaluadorcomision.C_Rol=?, profesionalevaluadorcomision.C_Codigo=?, profesionalevaluadorcomision.C_Grado=?, profesionalevaluadorcomision.C_Dependencia=? WHERE Pro_Documento = ?";  
+   connection.query(sql, [Pro_Nombre, Pro_TipoId, Pro_Rol, Pro_Codigo, Pro_Grado, Pro_Dependencia, ProfesionalEvaluadorProE_Documento, ProfesionalComision, ProE_Nombre, ProE_TipoId, ProE_Rol, ProE_Codigo, ProE_Grado, ProE_Dependencia, C_Nombre, C_TipoId, C_Rol, C_Codigo, C_Grado, C_Dependencia, Pro_Documento], (error, results, fields) => {
      if(error) {
         console.log(error);
      }
@@ -685,7 +685,7 @@ const nuevoMenu=[
                 }
             },
             {
-                label: 'Crear compromisos',
+                label: 'Compromisos',
                 accelerator: process.platform=='darwin' ? 'command+F': 'Ctrl+F',
                 click(){
                     VcrearCompromisos();

@@ -20,7 +20,7 @@ function leerexcel(ruta){
     //console.log(datos);
 }
 */
-function crearExcel(){
+//function crearExcel(){
 const mysql = require('mysql');
 const Excel = require('exceljs');
 const {dialog}=require('electron');
@@ -28,6 +28,9 @@ const {dialog}=require('electron');
 
 
 
+/*const downloadBtn=document.getElementById('btnguardar');
+
+downloadBtn.addEventListener('click', async function(){*/
 // document.addEventListener("DOMContentLoaded", function() {
 //     cedulaev=document.getElementById('txt-cedula-evaluado')
 // });
@@ -46,19 +49,19 @@ const con = mysql.createConnection({
     //let cedulaev = document.getElementById("txt-cedula-evaluado");
     let cedulaev;
     //document.addEventListener("DOMContentLoaded", function() {
-    cedulaev =652314987;
+    cedulaev =1025639854;
     
     
 	// -> Query data from MySQL
-	 con.query("SELECT * FROM profesionalevaluado inner join profesionalevaluador on profesionalevaluador.ProE_Documento=profesionalevaluado.ProfesionalEvaluadorProE_Documento inner join compromisosfucionales on profesionalevaluado.Pro_Documento=compromisosfucionales.ProfesionalEvaluadoPro_Documento inner join compromisoscomportamentales on profesionalevaluado.Pro_Documento=compromisoscomportamentales.ProfesionalEvaluadoPro_Documento WHERE Pro_Documento=?",cedulaev, function (err, profesionalevaluado, fields) {
+	 con.query("SELECT * FROM profesionalevaluado inner join profesionalevaluador on profesionalevaluador.ProE_Documento=profesionalevaluado.ProfesionalEvaluadorProE_Documento inner join profesionalevaluadorcomision on profesionalevaluadorcomision.C_Documento=profesionalevaluado.ProfesionalComision inner join compromisosfucionales on profesionalevaluado.Pro_Documento=compromisosfucionales.ProfesionalEvaluadoPro_Documento inner join compromisoscomportamentales on profesionalevaluado.Pro_Documento=compromisoscomportamentales.ProfesionalEvaluadoPro_Documento WHERE Pro_Documento=?",cedulaev, async function (err, profesionalevaluado, fields) {
 		
 		const jsonCustomers = JSON.parse(JSON.stringify(profesionalevaluado));
 		//console.log(jsonCustomers);
 
 
-        const fileName = 'src/GTH-F-304V3Formatoseguimientoaldesempenolaboral (2).xlsx';
+        const fileName = 'src/GTH-F-304V3Formatoseguimiento.xlsx';
 
-        async function escribirExcel(){
+       // async function escribirExcel(){
             let workbook = new Excel.Workbook();
             workbook = await workbook.xlsx.readFile(fileName);
             let worksheet = workbook.getWorksheet("Formato GTH-F-304");
@@ -80,6 +83,14 @@ const con = mysql.createConnection({
             worksheet.getRow(15).getCell(5).value=jsonCustomers[0].ProE_Codigo;
             worksheet.getRow(15).getCell(7).value=jsonCustomers[0].ProE_Grado;
             worksheet.getRow(15).getCell(9).value=jsonCustomers[0].ProE_Dependencia;
+            //Datos profesional comisionado
+            worksheet.getRow(17).getCell(3).value=jsonCustomers[0].C_Nombre;
+            worksheet.getRow(17).getCell(10).value=jsonCustomers[0].C_Documento;
+            worksheet.getRow(17).getCell(7).value=jsonCustomers[0].C_Tipoid;
+            worksheet.getRow(18).getCell(3).value=jsonCustomers[0].C_Rol;
+            worksheet.getRow(18).getCell(5).value=jsonCustomers[0].C_Codigo;
+            worksheet.getRow(18).getCell(7).value=jsonCustomers[0].C_Grado;
+            worksheet.getRow(18).getCell(9).value=jsonCustomers[0].C_Dependencia;
             //Datos compromisos funcionales
             worksheet.getRow(21).getCell(3).value=jsonCustomers[0].ComF_Descripcion;
             worksheet.getRow(21).getCell(4).value=jsonCustomers[0].ComF_PorPactado+"%";
@@ -88,50 +99,41 @@ const con = mysql.createConnection({
             //Compromisos comportamentales
             worksheet.getRow(28).getCell(3).value=jsonCustomers[0].ComC_Descripcion;
 
-        //workbook.xlsx.writeFile(fileName);
+        workbook.xlsx.writeFile(fileName);
 
-        const buffer =  await workbook.xlsx.writeBuffer(fileName);
+        /*const buffer =  await workbook.xlsx.writeBuffer(fileName);
 
         const options={
             title: 'Seleccione la carpeta de descarga',
             properties: ['openDirectory']
         };
 
-        const folderPaths= await dialog.showOpenDialog(options);
+        const {filePaths, canceled}= await dialog.showOpenDialog(options);
 
-        if(folderPaths && folderPaths.length > 0){
-            const filePath=`${folderPaths[0]}/documento.xlsx`;
+        if(!canceled && filePaths.length > 0){
+            const filePath=`${filePaths[0]}/documento.xlsx`;
             require('fs').writeFileSync(filePath, buffer);
 
-            console.log(`El archivo se ha guardado correctamente en: ${filePath}`);
-        }
+            dialog.showMessageBox({
+              type: 'info',
+              message: `El archivo se ha guardado correctamente en: ${filePath}`
+            });
+            //console.log(`El archivo se ha guardado correctamente en: ${filePath}`);
+        }*/
 
-        }
+        //}
 
-        return escribirExcel;
+        //escribirExcel();
+        //return escribirExcel;
 
         
 });
 });
+//});
 
-}
-let guardar;
-window.onload = function(){
-    document.getElementById("btnguardar").addEventListener('click', (e) => {
-        e.preventDefault();
-        crearExcel();
-    });
-    //guardar.onclick=descargarArchivoExcel;
-    
-}
+//}
 
 //module.exports=crearExcel;
-
-function holaaa(){
-    let pol=document.getElementById("myselect1");
-
-    console.log(pol);
-}
 
 /*const fileName = 'src/GTH-F-304V3Formatoseguimientoaldesempenolaboral (2).xlsx';
 

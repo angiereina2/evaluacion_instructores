@@ -9,6 +9,8 @@ let Pro_Rol;
 let Pro_Codigo;
 let Pro_Grado;
 let Pro_Dependencia;
+let ProfesionalComision;
+let ProfesionalEvaluadorProE_Documento;
 let ProE_Nombre;
 let ProE_Tipoid;
 let ProE_Documento;
@@ -39,6 +41,8 @@ Pro_Rol = document.getElementById("txtdemev");
 Pro_Codigo = document.getElementById("txtcodev");
 Pro_Grado = document.getElementById("txtgradev");
 Pro_Dependencia = document.getElementById("txtdependenciaev");
+ProfesionalEvaluadorProE_Documento= document.getElementById("txtDoc_Evaluador");
+ProfesionalComision= document.getElementById("txtDoc_EvaluadorC");
 ProE_Nombre = document.getElementById("txtNombreevaluador");
 ProE_Tipoid = document.getElementById("txttipoidevr");
 ProE_Documento = document.getElementById("txtDoc_Evaluador");
@@ -115,6 +119,8 @@ ipcRenderer.on('proEvaluados', (event, result) => {
       Pro_Codigo.value = result.Pro_Codigo
       Pro_Grado.value = result.Pro_Grado
       Pro_Dependencia.value = result.Pro_Dependencia
+      ProfesionalEvaluadorProE_Documento.value = result.ProfesionalEvaluadorProE_Documento
+      ProfesionalComision.value = result.ProfesionalComision
       ProE_Nombre.value = result.ProE_Nombre
       ProE_Tipoid.value = result.ProE_Tipoid
       ProE_Documento.value = result.ProE_Documento
@@ -141,6 +147,8 @@ async function ActualizarInfEvaluado()
       Pro_Codigo: Pro_Codigo.value,
       Pro_Grado: Pro_Grado.value,
       Pro_Dependencia: Pro_Dependencia.value,
+      ProfesionalEvaluadorProE_Documento: ProfesionalEvaluadorProE_Documento.value,
+      ProfesionalComision: ProfesionalComision.value,
       ProE_Nombre: ProE_Nombre.value,
       ProE_Tipoid: ProE_Tipoid.value,
       ProE_Documento: ProE_Documento.value,
@@ -171,6 +179,8 @@ function clearinput()
    Pro_Codigo.value = ""
    Pro_Grado.value = ""
    Pro_Dependencia.value = ""
+   ProfesionalEvaluadorProE_Documento.value = ""
+   ProfesionalComision.value = ""
    ProE_Nombre.value = ""
    ProE_Tipoid.value = ""
    ProE_Documento.value = ""
