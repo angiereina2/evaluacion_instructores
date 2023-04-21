@@ -20,13 +20,48 @@ function leerexcel(ruta){
     //console.log(datos);
 }
 */
-//function crearExcel(){
+
 const mysql = require('mysql');
 const Excel = require('exceljs');
-const {dialog}=require('electron');
+const path=require('path')
+const {dialog, ipcRenderer}=require('electron');
+
+let btncrear;
+let cedulaev;
+
+window.onload = function(){
+
+    cedulaev=document.getElementById("ProEvaluador");
+    btncrear= document.getElementById("btnguardar");
+    btncrear.onclick= crearExcel(2);
+    renderSelect2();
+
+};
+
+async function renderSelect2() 
+{
+   await ipcRenderer.invoke('consulta3')   
+}
+
+ipcRenderer.on('select3', (event, results) => {
 
 
+let template=""
+const list=results
+list.forEach((row)=>{
+  template+=`
+  <input>
+  <datalist>
+  <select>
+    <option value="${row.ProE_Documento}">${row.ProE_Nombre}</option>
+  </select>
+  </datalist>
+`
+});
+cedulaev.innerHTML = template;
+});
 
+function crearExcel(numArchivos){
 
 /*const downloadBtn=document.getElementById('btnguardar');
 
@@ -46,10 +81,11 @@ const con = mysql.createConnection({
 
  con.connect((err) => {
 	if (err) throw err;
-    //let cedulaev = document.getElementById("txt-cedula-evaluado");
-    let cedulaev;
-    //document.addEventListener("DOMContentLoaded", function() {
-    cedulaev =1025639854;
+
+     /*let cedulaev;
+
+     cedulaev =1025639854;
+     let evaluador=6985632;*/
     
     
 	// -> Query data from MySQL
@@ -59,11 +95,11 @@ const con = mysql.createConnection({
 		//console.log(jsonCustomers);
 
 
-        const fileName = 'src/GTH-F-304V3Formatoseguimiento.xlsx';
-
+        //const fileName = 'src/GTH-F-304V3Formatoseguimiento.xlsx';
+        for (let i = 1; i <= numArchivos; i++) {
        // async function escribirExcel(){
             let workbook = new Excel.Workbook();
-            workbook = await workbook.xlsx.readFile(fileName);
+            workbook = await workbook.xlsx.readFile('src/GTH-F-304V3Formatoseguimiento.xlsx');
             let worksheet = workbook.getWorksheet("Formato GTH-F-304");
 
             //Datos evaluados
@@ -99,16 +135,20 @@ const con = mysql.createConnection({
             //Compromisos comportamentales
             worksheet.getRow(28).getCell(3).value=jsonCustomers[0].ComC_Descripcion;
 
-        workbook.xlsx.writeFile(fileName);
+        //workbook.xlsx.writeFile(fileName);
 
-        /*const buffer =  await workbook.xlsx.writeBuffer(fileName);
+        //const buffer =  await workbook.xlsx.writeBuffer(fileName);
 
-        const options={
+        /*const options={
             title: 'Seleccione la carpeta de descarga',
             properties: ['openDirectory']
         };
 
-        const {filePaths, canceled}= await dialog.showOpenDialog(options);
+        
+        const {filePaths, canceled}= await electron.openDialog('showOpenDialog', options)
+            .then(result => console.log(result));
+
+        //const {filePaths, canceled}= await dialog.showOpenDialog(options);
 
         if(!canceled && filePaths.length > 0){
             const filePath=`${filePaths[0]}/documento.xlsx`;
@@ -126,12 +166,22 @@ const con = mysql.createConnection({
         //escribirExcel();
         //return escribirExcel;
 
+            const fileName = `Formato${i}.xlsx`;
+            const filePath = path.join(__dirname, fileName);
+            workbook.xlsx.writeFile( filePath)
+              .then(() => {
+                console.log(`Archivo ${fileName} creado`);
+              })
+              .catch((err) => {
+                console.error(err);
+              });
+    }
         
 });
 });
 //});
 
-//}
+}
 
 //module.exports=crearExcel;
 

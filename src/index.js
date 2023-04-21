@@ -1,7 +1,9 @@
-const {app, BrowserWindow, Menu, ipcMain, Notification} =require('electron');
+const {app, BrowserWindow, Menu, ipcMain, Notification, dialog} =require('electron');
 const connection=require('./conexion/conectar');
 const url=require('url');
 const path =require('path');
+const http = require('http-server');
+const formidable=require('formidable');
 const { lstatSync } = require('fs');
 
 /*if(process.env.NODE_ENV !== 'production'){
@@ -30,18 +32,18 @@ function ventanaindex(){
             /* contextIsolation : false,
             enableRemoteModule: true,*/
             nodeIntegration : true, 
-            preload: path.join(__dirname, 'select.js'),
+            preload: path.join(__dirname, 'Reportes/funcional.js'),
     }
     
+    
     }) 
-    //descargar archivo
-    /*mainWindow.loadURL(`file://${__dirname}/funcional.js`);
-    ipcMain.on("download", (event, info) => {
-        download(BrowserWindow.getFocusedWindow(), info.url, info.properties)
-            .then(dl => mainWindow.webContents.send("download complete", dl.getSavePath()));
-    });*/
+    const server = http.createServer({ root: path.join(__dirname, 'Reportes') });
+    server.listen(8080, () => {
+      console.log('Servidor corriendo en http://localhost:8080')
+    })
+  
 
-    //mainWindow.webContents.openDevTools()
+    mainWindow.webContents.openDevTools()
     mainWindow.loadFile('src/vista/index.html')
     const prinmenu=Menu.buildFromTemplate(nuevoMenu);
     Menu.setApplicationMenu(prinmenu);
@@ -127,23 +129,7 @@ function validatelogin(obj){
     });
 }
 
-//logout
-/*ipcMain.handle('logout', (event, confirm) => {
-  validateLogout(confirm);
-});
-
-function validateLogout(confirm) {
-  if (confirm == 'confirm-logout') {
-    loginv();
-    ventlogin.show();
-    mainWindow.close();
-  }
-}
-
-ipcMain.handle("user:get", (event) => {
-    return user;
-  });*/
-
+//Logout
 ipcMain.on("user:logout", (event) => {
     user = null;
     loginv();
@@ -164,7 +150,7 @@ ipcMain.on("user:logout", (event) => {
     invitadoWindow.close();
   });
 
-//funcion para la ventana de registros
+//funcion para la ventana de registro de instructores
 function Vcrear(){
     ventanaCrear=new BrowserWindow({
         width: 600,
@@ -176,40 +162,12 @@ function Vcrear(){
     })
     ventanaCrear.setMenu(null);
     ventanaCrear.loadFile('src/vista/registrar.html')
-    // ventanaCrear.on('closed', ()=>{
-    //     ventanaCrear=null;
-    // });
 }
 
 
 ipcMain.handle('crear', (event, obj) => {
     crearInstructor(obj)
   });
-
-  /*ipcMain.handle('getCarreras', () => {
-    Selectevaluadores()
-  });
-
-function Selectevaluadores(){}
-
-  
-    connection.query('SELECT * FROM profesionalevaluador', (error, results, fields) => {
-      if (error) {
-        console.log(error);
-      }
-      let ProE_Documento = '', ProE_Nombre = '';
-  
-      if (results.length > 0) {
-        for (let i = 0; i < results.length; i++) {
-            ProE_Documento += results[i].ProE_Documento + '_';
-          ProE_Nombre += results[i].ProE_Nombre + '_';
-        }
-  
-      }
-    });*/
-  
-  
-
 
 function crearInstructor(obj)
   {
@@ -263,28 +221,6 @@ function VcrearCompromisos(){
     ventanaCrearCompromisos.loadFile('src/vista/registrar-compromisos.html')
 }
 
-/*function modalFuncional(){
-  ipcRenderer.on('showModal', ()=>{
-      const ventanamodalF= new BrowserWindow({
-          width: 400,
-          height: 300,
-          modal: true, 
-          parent: RemotePlayback.getCurrentWindow(),
-          webPreferences: {
-              nodeIntegration: true
-          }
-      })
-      ventanamodalF.loadFile('vista/modal_compromisos.html')
-      ventanamodalF.setMenu(null);
-      ventanamodalF.show()
-  })
-  }
-
-ipcMain.on('abrirmodalF', (event) =>{
-  modalFuncional();
-  ventanaCrearCompromisos.webContents.send('showModal')
-});*/
-
 //consultar funcionales
 ipcMain.handle('getCompF', () => {
   getFuncionales()
@@ -317,6 +253,35 @@ function getComportamentales()
     
     ventanaCrearCompromisos.webContents.send('comportamentales', results)
   });  
+}
+//Crear compromisos
+
+ipcMain.handle('crearFuncionales', (event, obj) => {
+  crearFuncionales(obj)
+});
+
+function crearFuncionales(obj)
+{
+  const sql = "INSERT INTO compromisosfucionales SET ?";  
+  connection.query(sql, obj, (error, results, fields) => {
+    if(error) {
+       console.log(error);
+    }
+ });
+}
+
+ipcMain.handle('crearComportamentales', (event, obj) => {
+  crearComportamentales(obj)
+});
+
+function crearComportamentales(obj)
+{
+  const sql = "INSERT INTO compromisoscomportamentales SET ?";  
+  connection.query(sql, obj, (error, results, fields) => {
+    if(error) {
+       console.log(error);
+    }
+ });
 }
 
 //Eliminar
@@ -500,20 +465,6 @@ function ReporteSeguimiento(){
             VentanaSeguimientoreporte.setMenu(null);
             VentanaSeguimientoreporte.loadFile('src/vista/seguimiento.html');
 }
-    
-/*ipcMain.handle('reporteSeg', (event, obj) => {
-    ReporteSeguimiento(obj)
-  });
-
-function ReporteSeguimiento(obj)
-{
-  const sql = "INSERT INTO seguimientodesempeño ('fecha', 'Periodo_Seguimiento', 'Nombre_Evaluado', 'Doc_Evalaudo', 'Nombre_Evaluador', 'Doc_Evalaudor', 'NOmbre_EvaluadorC', 'Doc_EvalaudorC', 'Comprmisos_Funcionales', 'Compromisos_Comportamentales') VALUES (?, ?, ?, ?, ?, ?, ?,?, ?, ?)";  
-  connection.query(sql, obj, (error, results, fields) => {
-    if(error) {
-       console.log(error);
-    }
- });
-}*/
 
 //Consultar
 ipcMain.handle('getEvaluado', () => {
@@ -619,28 +570,7 @@ ipcMain.handle('consulta1', () => {
     consultarProEv()
  });
 
-
- //prueba seleccion de archivos
- const ExcelJS = require('exceljs');
-const { error } = require('console');
-
-function crearArchivoExcel(ruta, datos) {
-  const workbook = new ExcelJS.Workbook();
-  const worksheet = workbook.addWorksheet('Mi hoja de cálculo');
-  worksheet.addRow(['Nombre', 'Edad']);
-  datos.forEach((fila) => {
-    worksheet.addRow(fila);
-  });
-  const buffer = workbook.xlsx.writeBuffer();
-  require('fs').writeFileSync(ruta, buffer);
-}
-  
-ipcMain.handle('crear-archivo-excel', (event, ruta, datos) => {
-    
-  crearArchivoExcel(ruta, datos);
-});
-
-
+ //Seleccion profesional evaluador
 function consultarProEv(){
                 const sql = 'SELECT * FROM profesionalevaluador';
                 connection.query(sql, (err, results, fields)=>{
@@ -653,6 +583,61 @@ function consultarProEv(){
                   ventanaCrear.webContents.send('select1', results)
                 });
 }
+
+ipcMain.handle('consulta3', () => {
+  consultarProEv3()
+});
+
+//Seleccion profesional evaluador
+function consultarProEv3(){
+              const sql = 'SELECT * FROM profesionalevaluador';
+              connection.query(sql, (err, results, fields)=>{
+                if(err){
+                  console.error("error al obtener los datos: ", err);
+                }else{
+                  console.log("datos obtenidos: ", results);
+                }
+
+                mainWindow.webContents.send('select3', results)
+              });
+}
+
+ipcMain.handle('consultaProCom', () => {
+  consultarProEvC()
+});
+
+//Seleccion profesional comisionado
+function consultarProEvC(){
+              const sql = 'SELECT * FROM profesionalevaluadorcomision';
+              connection.query(sql, (err, results, fields)=>{
+                if(err){
+                  console.error("error al obtener los datos: ", err);
+                }else{
+                  console.log("datos obtenidos: ", results);
+                }
+
+                ventanaCrear.webContents.send('selectProCom', results)
+              });
+}
+
+//Seleccion compromisos
+ipcMain.handle('consultaF', () => {
+  consultarCompr()
+});
+
+function consultarCompr(){
+              const sql = 'SELECT * FROM profesionalevaluado';
+              connection.query(sql, (err, results, fields)=>{
+                if(err){
+                  console.error("error al obtener los datos: ", err);
+                }else{
+                  console.log("datos obtenidos: ", results);
+                }
+
+                ventanaCrearCompromisos.webContents.send('selectF', results)
+              });
+}
+
 const nuevoMenu=[
     {
         label: 'File',

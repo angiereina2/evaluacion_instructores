@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://bootswatch.com/5/minty/bootstrap.min.css">
     <link rel="stylesheet" href="./css/style.css">
-    <link rel="stylesheet" href="C:/Users/APRENDIZ/Documents/proyecto/evaluacion_instructores/node_modules/@fortawesome/fontawesome-free/css/all.css">
+    <link rel="stylesheet" href="../../node_modules/@fortawesome/fontawesome-free/css/all.css">
     <title>Registrar Compromisos</title>
 </head>
 <body>
@@ -78,10 +78,17 @@
             <input type="number" class="form-control" id="txtporcf" placeholder="Ingrese el porcentaje del compromiso">
           </div>
           <div class="mb-3">
-            <label class="form-label">Numero de identificacion Evaluado:</label>
-            <input type="number" class="form-control" id="txtdocevaluadocf" placeholder="Ingrese el numero de documento del evaluado">
+            <label class="form-label">Profesionales evaluados:</label>
+            <!-- <input list="myselectbuscarf">
+            <datalist id="myselectbuscarf">  -->
+            <select id="txtdoccompf" class="form-select">
+              <option value=""></option>
+            </select>
+            </datalist>
+
           </div>
-          <button id="btn-actualizarF">Actualizar</button>
+          <button type="submit" id="btn-registrarF" class="btn btn-primary"><i class="fas fa-folder-open"></i> Registrar</button>
+          <button type="submit" id="btn-actualizarF" class="btn btn-success"><i class="fas fa-angle-double-up"></i> Actualizar</button>
          
           <h1 style="text-align: center;">Compromisos Comportamentales:</h1>
           <input type="text" id="idCompComportamental" hidden >
@@ -94,11 +101,18 @@
             <textarea class="form-control" rows="5" id="txtdesccc"></textarea>
           </div>
           <div class="mb-3">
-            <label class="form-label">Numero de identificacion Evaluado:</label>
-            <input type="number" class="form-control" id="txtdocumentocc" placeholder="Ingrese el numero de documento del evaluado">
+            <label class="form-label">Profesionales evaluados:</label>
+            <!-- <input list="myselectbuscarc">
+            <datalist id="myselectbuscarc">  -->
+            <select id="txtdoccompc" class="form-select">
+              <option value=""></option>
+            </select>
+            </datalist>
+
           </div>
         <p></p>
-        <button type="submit" id="btn-actualizarC" class="btn btn-primary"> <i class="fas fa-folder-open"></i> Actualizar</button>
+        <button type="submit" id="btn-registrarC" class="btn btn-primary"> <i class="fas fa-folder-open"></i> Registrar</button>
+        <button type="submit" id="btn-actualizarC" class="btn btn-success"> <i class="fas fa-angle-double-up"></i> Actualizar</button>
       </div>
     </form>
       <script src="../controlador/crearcompromisos.js"></script>

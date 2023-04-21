@@ -10,6 +10,9 @@ let ProfesionalEvaluadoPro_Documento;
 let ComC_Id;
 let ComC_Numero;
 let ComC_Descripcion;
+let ProfesionalEvaluadoPro_Documento1;
+let btncrearF;
+let btncrearC;
 let btneliminar;
 let btneditar;
 let btneliminar1;
@@ -24,18 +27,105 @@ document.addEventListener("DOMContentLoaded", function() {
     ComF_Numero=document.getElementById("txtnumcf");
     ComF_Descripcion=document.getElementById("txtprimerf");
     ComF_PorPactado=document.getElementById("txtporcf");
-    ProfesionalEvaluadoPro_Documento=document.getElementById("txtdocevaluadocf");
+    ProfesionalEvaluadoPro_Documento=document.getElementById("txtdoccompf");
     ComC_Id=document.getElementById("idCompComportamental");
     ComC_Numero=document.getElementById("txtnumcc");
     ComC_Descripcion=document.getElementById("txtdesccc");
+    ProfesionalEvaluadoPro_Documento=document.getElementById("txtdoccompc");
+    btncrearF=document.getElementById("btn-registrarF");
+    btncrearF.onclick=renderCrearCompromisosF;
+    btncrearC=document.getElementById("btn-registrarC");
+    btncrearC.onclick=renderCrearCompromisosC;
     btnActualizar=document.getElementById("btn-actualizarF");
     btnActualizar.onclick = ActualizarFuncional;
     btnActualizar1=document.getElementById("btn-actualizarC");
     btnActualizar1.onclick = ActualizarComportamental;
     //btneditar=document.getElementById("abrirmodalF");
+    renderSelectproev1();
+    renderSelectproev2();
     renderCompromisosC();
     renderCompromisosF();
 });
+
+async function renderSelectproev1() 
+{
+   await ipcRenderer.invoke('consultaF')   
+}
+
+ipcRenderer.on('selectF', (event, results) => {
+
+
+let template=""
+const list=results
+list.forEach((row)=>{
+  template+=`
+  <input>
+  <datalist>
+  <select>
+    <option value="${row.Pro_Documento}">${row.Pro_Nombre}</option>
+  </select>
+  </datalist>
+`
+});
+ProfesionalEvaluadoPro_Documento.innerHTML = template;
+});
+
+async function renderCrearCompromisosF() {
+   const obj = {
+    ComF_Numero: parseInt(ComF_Numero.value),
+    ComF_Descripcion:ComF_Descripcion.value,
+    ComF_PorPactado: parseInt(ComF_PorPactado.value),
+    ProfesionalEvaluadoPro_Documento: parseInt(ProfesionalEvaluadoPro_Documento.value)
+   }
+   ComF_Numero.value = ""
+   ComF_Descripcion.value = ""
+   ComF_PorPactado.value = ""
+   ProfesionalEvaluadoPro_Documento.value = ""
+   await ipcRenderer.invoke('crearFuncionales', obj)  
+  
+   new Notification('Compromiso Funcional', {
+      body: 'El compromiso funcional se ha registrado exitosamente'
+    })
+}
+
+async function renderSelectproev2() 
+{
+   await ipcRenderer.invoke('consultaF')   
+}
+
+ipcRenderer.on('selectF', (event, results) => {
+
+
+let template=""
+const list=results
+list.forEach((row)=>{
+  template+=`
+  <input>
+  <datalist>
+  <select>
+    <option value="${row.Pro_Documento}">${row.Pro_Nombre}</option>
+  </select>
+  </datalist>
+`
+});
+ProfesionalEvaluadoPro_Documento.innerHTML = template;
+});
+
+async function renderCrearCompromisosC() {
+   const obj = {
+    ComC_Numero: parseInt(ComC_Numero.value),
+    ComC_Descripcion:ComC_Descripcion.value,
+    ProfesionalEvaluadoPro_Documento: parseInt(ProfesionalEvaluadoPro_Documento.value),
+   }
+   ComC_Numero.value = ""
+   ComC_Descripcion.value = ""
+   ProfesionalEvaluadoPro_Documento.value = ""
+   await ipcRenderer.invoke('crearComportamentales', obj)  
+  
+   new Notification('Compromiso Comportamental', {
+      body: 'El compromiso comportamental se ha registrado exitosamente'
+    })
+}
 
 async function renderCompromisosF() 
 {
@@ -223,29 +313,3 @@ function clearinput1()
       ComC_Descripcion.value = ""
       ProfesionalEvaluadoPro_Documento.value = ""
 }
-
-const form = document.querySelector('form');
-const inputBusqueda=document.querySelector('#busqueda');
-const resultados=document.querySelector('#resultados');
-
-form.addEventListener('submit', (event) =>{
-   event.preventDefault();
-   const cadenaBusqueda=inputBusqueda.value;
-
-   ipcRenderer.send('buscarev', cadenaBusqueda);
-});
-
-ipcRenderer.on('resultado-busqueda', (event, data) =>{
-   if(data.error){
-      console.error('Error en la busqueda de base de datos. fg');
-      return;
-   }
-
-   resultados.innerHTML='';
-
-   for(const resultado of data.resultados){
-      const li=document.createElement('li');
-      li.textContent=resultado.columna;
-      resultados.appendChild(li);
-   }
-})

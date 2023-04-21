@@ -7,13 +7,20 @@
     <title>Plantilla Seguimiento</title>
     <link rel="stylesheet" href="https://bootswatch.com/5/minty/bootstrap.min.css">
     <link rel="stylesheet" href="./css/style.css">
-    <link rel="stylesheet" href="C:/Users/APRENDIZ/Documents/proyecto/evaluacion_instructores/node_modules/@fortawesome/fontawesome-free/css/all.css">
+    <link rel="stylesheet" href="../../node_modules/@fortawesome/fontawesome-free/css/all.css">
 </head>
 <body>
     <header>
         <img alt="Centro para la Industria de la Comunicación Gráfica" height="172px; " id="Header1_headerimg" src="img\logo cenigraf.jpg" style="display: block" width="525px; ">
         <h1 class="titulo">Evaluación de desempeño laboral 2023</h1>
     </header>
+
+    <h1>carga el archivo</h1>
+    <form enctype="multipart/form-data" method="post" action="../upload">
+      <input type="file" name="file">
+      <br><br>
+      <input type="submit" value="Cargar archivo">
+    </form>
         <p class="text-center" style="margin-top: 40px;">
             <div id="drop-area">
                 <h2>Arrastre y suelte su archivo</h2>
@@ -23,9 +30,6 @@
                 <input type="file" id="txtarchivo" hidden multiple>
             </div>
         </p>
-
-    <script src="../renderer.js"></script>
-
     <div class="container">
         <form action="">
         <div class="row" id="Plantilla">
@@ -39,19 +43,31 @@
                 </datalist>
 
               </div>
-               <script src="../select.js"></script> 
+               <script src="../controlador/select.js"></script> 
         </div>
+        <div class="row" id="Plantilla">
+          <div class="mb-3">
+            <label class="form-label">Profesionales evaluadores:</label>
+            <input list="myselectbuscar1">
+            <datalist id="myselectbuscar1"> 
+            <select id="ProEvaluador">
+              <option value=""></option>
+            </select>
+            </datalist>
+
+          </div>
+           <script src="../controlador/select.js"></script> 
+    </div>
         <p class="text-center" style="margin-top: 40px;">
-          <!-- <div class="col-12">
-            <input type="file" class="form-control" name="file" required />
-            </div> -->
-        <button type="submit" id="btnguardar" class="btn btn-success"><i class="fas fa-download"></i> &nbsp; Guardar</button>
+        <button type="submit" id= "btnguardar" class="btn btn-success"><i class="fas fa-download"></i>  Guardar</button>
+        <button type="submit" id= "btnguardarmasivo" class="btn btn-success"><i class="fas fa-download"></i>  Guardar Masivo</button>
         &nbsp; &nbsp;
         <button type="submit" id= "btnenviarc" class="btn btn-danger">&nbsp; Enviar</button>
       </p>
     </form>
     
-     <script src="../funcional.js"></script>
+     <script src="../Reportes/funcional.js"></script>
+    
      <!--<script>
       document.getElementById('btnguardar').addEventListener('click', (e)=>{
         e.preventDefault();
