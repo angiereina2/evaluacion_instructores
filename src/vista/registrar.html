@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://bootswatch.com/5/minty/bootstrap.min.css">
+    <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="../../node_modules/@fortawesome/fontawesome-free/css/all.css">
+    <title>Registrar</title>
+</head>
+<body>
+    <header>
+      <img alt="Centro para la Industria de la Comunicación Gráfica" height="172px; " id="Header1_headerimg" src="img\logo cenigraf.jpg" style="display: block" width="500px; ">
+        <h1>Crear Nuevos registros de instructores</h1>
+    </header>
+    <form action="">
+      <div class="container">
+        <div class="mb-3 mt-3">
+          <label for="text" class="form-label">Nombres:</label>
+          <input type="text" class="form-control" id="txtninstructor" placeholder="Ingrese los nombres del Instructor" name="txtninstructor">
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Apellidos:</label>
+          <input type="text" class="form-control" id="txtapellidoi" placeholder="Ingrese los apellidos del Instructor" name="txtapellidoi">
+        </div>
+        <div class="mb-3">
+            <label for="text" class="form-label">Tipo de identificacion:</label>
+            <select class="form-select" id="txttipoid">
+                <option>Cedula de Ciudadania</option>
+                <option>Cedua de extranjeria</option>
+                <option>Pasaporte</option>
+              </select>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Numero de identificacion:</label>
+            <input type="number" class="form-control" id="txtdocumentoi" placeholder="Ingrese el numero de documento" name="txtdocumentoi">
+          </div>
+        <div class="mb-3">
+            <label class="form-label">Denominacion del empleo:</label>
+            <input type="text" class="form-control" id="txtroli" placeholder="Ingrese el tipo de empleo" name="txtroli">
+          </div>
+        <div class="mb-3">
+            <label class="form-label">Correo:</label>
+            <input type="email" class="form-control" id="txtcorreoi" placeholder="Ingrese el correo del instructor" name="txtcorreoi">
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Codigo:</label>
+            <input type="number" class="form-control" id="txtcodigoi" placeholder="Ingrese el codigo" name="txtcodigoi">
+          </div>
+        <div class="mb-3">
+            <label class="form-label">Grado:</label>
+            <input type="number" class="form-control" id="txtgradoi" placeholder="Ingrese el grado" name="txtgradoi">
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Dependencia:</label>
+            <input type="text" class="form-control" id="txtdependenciai" placeholder="Ingrese la dependencia" name="txtdependenciai">
+        </div>
+        <div class="mb-3">
+                <label class="form-label">Profesional evaluador (Si no corresponde seleccione 1):</label>
+                <!-- <input list="txtprofevc">
+                <datalist id="txtprofevc">  -->
+                <select id="txtprofev" class="form-select">
+                  <option value=""></option>
+                </select>
+                </datalist> 
+              </div>
+              <div class="mb-3">
+                <label class="form-label">Profesional evaluador comisionado (Si no corresponde seleccione 1):</label>
+                <!-- <input list="txtprofev1">
+                <datalist id="txtprofev1">  -->
+                <select id="txtprofevcom" class="form-select">
+                  <option value=""></option>
+                </select>
+                </datalist> 
+
+              </div>
+        <button type="submit" id="btnregistrar" class="btn btn-primary"><i class="fas fa-folder-open"></i> Registrar</button>
+      </div>
+      </form>
+      <script src="../controlador/cregistrar.js"></script>
+    
+</body>
+</html>

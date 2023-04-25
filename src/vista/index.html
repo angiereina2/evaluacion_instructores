@@ -7,63 +7,117 @@
     <title>Plantilla Seguimiento</title>
     <link rel="stylesheet" href="https://bootswatch.com/5/minty/bootstrap.min.css">
     <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="../../node_modules/@fortawesome/fontawesome-free/css/all.css">
 </head>
 <body>
     <header>
+        <img alt="Centro para la Industria de la Comunicación Gráfica" height="172px; " id="Header1_headerimg" src="img\logo cenigraf.jpg" style="display: block" width="525px; ">
         <h1 class="titulo">Evaluación de desempeño laboral 2023</h1>
     </header>
-      
-    <div id="preview"></div>
+
+    <h1>carga el archivo</h1>
+    <form enctype="multipart/form-data" method="post" action="../upload">
+      <input type="file" name="file">
+      <br><br>
+      <input type="submit" value="Cargar archivo">
+    </form>
+        <p class="text-center" style="margin-top: 40px;">
+            <div id="drop-area">
+                <h2>Arrastre y suelte su archivo</h2>
+                <span>O</span>
+                <button>Seleccione el archivo</button>
+                <!-- <input type="button" value="Escoge un archivo" id="select-file"/> -->
+                <input type="file" id="txtarchivo" hidden multiple>
+            </div>
+        </p>
     <div class="container">
         <form action="">
         <div class="row" id="Plantilla">
-          <!--  <label>Versión:</label>
-            <label>Versión:</label>
-            <input list="versiones">
-            <datalist id="versiones">
-                <option value="hola"></option>
-                <option value="hi"></option>
-                <option value="bonjour"></option>
-                <option value="merhaba"></option>
-            </datalist>
-            <p></p>
-            <label>Codigo:</label>
-            <select class="form-select">
-                <option>1</option>
-                <option>2</option>
-                <option>3</option>
-                <option>4</option>
-              </select>
-              <p></p>
-            <div class="row">
-                    <label for="date" class="form-label">Fecha de evaluación:</label>
-                    <input type="date" name="txtfecha">
-            </div>
-              <p></p>
-              <label>Periodo:</label>
-            <select class="form-select">
-                <option>1</option>
-                <option>2</option>
-                <option>3</option>
-                <option>4</option>
-              </select>
-              <p></p>
-              <label>Tipo de reunion:</label>
-              <select class="form-select">
-                  <option>1</option>
-                  <option>2</option>
-                  <option>3</option>
-                  <option>4</option>
+              <div class="mb-3">
+                <label class="form-label">Profesionales evaluados:</label>
+                <input list="myselectbuscar">
+                <datalist id="myselectbuscar"> 
+                <select id="myselect">
+                  <option value=""></option>
                 </select>
-                <p></p> -->
-                <label>Profesionales evaluados:</label>
-      >
+                </datalist>
+
+              </div>
+               <script src="../controlador/select.js"></script> 
         </div>
-        <p></p>
-        <button type="submit" id="btnguardar" class="btn btn-success">&nbsp; Guardar</button>
+        <div class="row" id="Plantilla">
+          <div class="mb-3">
+            <label class="form-label">Profesionales evaluadores:</label>
+            <input list="myselectbuscar1">
+            <datalist id="myselectbuscar1"> 
+            <select id="ProEvaluador">
+              <option value=""></option>
+            </select>
+            </datalist>
+
+          </div>
+           <script src="../controlador/select.js"></script> 
+    </div>
+        <p class="text-center" style="margin-top: 40px;">
+        <button type="submit" id= "btnguardar" class="btn btn-success"><i class="fas fa-download"></i>  Guardar</button>
+        <button type="submit" id= "btnguardarmasivo" class="btn btn-success"><i class="fas fa-download"></i>  Guardar Masivo</button>
         &nbsp; &nbsp;
         <button type="submit" id= "btnenviarc" class="btn btn-danger">&nbsp; Enviar</button>
+      </p>
     </form>
-    </div>
+    
+     <script src="../Reportes/funcional.js"></script>
+    
+     <!--<script>
+      document.getElementById('btnguardar').addEventListener('click', (e)=>{
+        e.preventDefault();
+        descargarArchivo();
+      });
+    </script>  -->
+    <p></p>
+<p class="text-center">
+    <button type="submit" id="btnlogout" class="btn btn-danger" style="float: center;"> <i class="fas fa-sign-out"></i> &nbsp; Cerrar Sesión</button>
+  </div>
+    <script src="../loginf.js"></script>
+    <script>
+      /*window.addEventListener('DOMContentLoaded', () => {
+        window.electron.getUser().then((user) => {
+          document.getElementById("username").innerHTML = `${user.profile.firstName} ${user.profile.lastName}`
+        });
+      });*/
+    
+      document.getElementById('btnlogout').addEventListener('click', () => {
+        
+        window.electron.logout();
+      });
+    </script>
+    </p>
+    <!-- <button type="button" id="download">Descargar</button>
+<div id="headers"></div>
+<script src="../funcional.js"></script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script>
+    const button = document.getElementById('download');
+    button.addEventListener('click', (event) => {
+      event.preventDefault();
+      axios.get('http://localhost/descargas', {  // <= sustituyes por tu ruta
+        responseType: 'blob',
+        headers: {
+          Accept: 'application/octet-stream'
+        }
+      })
+        .then((res) => {
+          const fileName2 = res.headers['x-processed-filename']; // <= cabezera personalizada
+          const url = window.URL.createObjectURL(new Blob([res.data]));
+          const link = document.createElement('a');
+          link.href = url;
+          // link.setAttribute('download', fileName);
+          link.setAttribute("download", `documento.xlsx`);
+          document.body.appendChild(link);
+          link.click();
+          link.remove();
+        });
+    });
+    </script> -->
 </body>
 </html>

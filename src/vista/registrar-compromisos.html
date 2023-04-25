@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://bootswatch.com/5/minty/bootstrap.min.css">
+    <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="../../node_modules/@fortawesome/fontawesome-free/css/all.css">
+    <title>Registrar Compromisos</title>
+</head>
+<body>
+    <header>
+      <img alt="Centro para la Industria de la Comunicación Gráfica" height="172px; " id="Header1_headerimg" src="img\logo cenigraf.jpg" style="display: block" width="500px; ">
+        <h1>Registrar compromisos funcionales y comportamentales</h1>
+    </header>
+    <!-- <h3>Buscar datos del profesional evaluado:</h3>
+  <input type="text" class="form-control" id="busqueda-proEvaluado" placeholder="Ingrese el numero de cedula del profesional evaluado">
+  <button type="submit" id="btn-buscarComp" class="btn btn-success">Buscar</button> -->
+    <h3 style="text-align:center;">Compromisos Funcionales</h3>
+    <div class="container">
+    <div class="constainer p-4">
+    <div class="content" style="text-align: center;">
+      <div class="justify-content-center">
+    
+      <table class="table table-hover table-dark">
+          <thead>
+              <tr>
+                  <th scope="col">Nombre Evaluado</th>
+                  <th scope="col">Compromiso No</th>
+                  <th scope="col">Descripcion</th>
+                  <th scope="col">Porcentaje Pactado</th>
+                  <th scope="col">Eliminar</th>
+                  <th scope="col">Actualizar</th>
+              </tr>
+          </thead>
+          <tbody id="tabla-funcionales">
+          <!-- info -->
+         </tbody>
+      </table>
+     
+  </div>
+</div>
+    <h3 style="text-align:center;">Compromisos Comportamentales</h3>
+    
+      <table class="table table-hover table-dark">
+          <thead>
+              <tr>
+                <th scope="col">Nombre Evaluado</th>
+                <th scope="col">Compromiso No</th>
+                <th scope="col">Descripcion</th>
+                <th scope="col">Eliminar</th>
+                <th scope="col">Actualizar</th>
+              </tr>
+          </thead>
+          <tbody id="tabla-comportamentales">
+          <!-- info -->
+        </tbody>
+      </table>
+    
+  </div>
+</div>
+  
+     <form>
+        <h1 style= "text-align:center;">Compromisos Funcionales</h1>
+        <div class="container">
+          <input type="number" id="idCompFuncional" hidden >
+          <div class="mb-3">
+            <label class="form-label">Compromiso No:</label>
+            <input type="number" class="form-control" id="txtnumcf" placeholder="Ingrese el numero del compromiso">
+          </div>
+        <div class="mb-3 mt-3">
+            <label class="form-label">Descripcion:</label>
+            <textarea class="form-control" rows="5" id="txtprimerf"></textarea>
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Porcentaje Pactado:</label>
+            <input type="number" class="form-control" id="txtporcf" placeholder="Ingrese el porcentaje del compromiso">
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Profesionales evaluados:</label>
+            <!-- <input list="myselectbuscarf">
+            <datalist id="myselectbuscarf">  -->
+            <select id="txtdoccompf" class="form-select">
+              <option value=""></option>
+            </select>
+            </datalist>
+
+          </div>
+          <button type="submit" id="btn-registrarF" class="btn btn-primary"><i class="fas fa-folder-open"></i> Registrar</button>
+          <button type="submit" id="btn-actualizarF" class="btn btn-success"><i class="fas fa-angle-double-up"></i> Actualizar</button>
+         
+          <h1 style="text-align: center;">Compromisos Comportamentales:</h1>
+          <input type="text" id="idCompComportamental" hidden >
+          <div class="mb-3">
+            <label class="form-label">Compromiso No:</label>
+            <input type="number" class="form-control" id="txtnumcc" placeholder="Ingrese el numero de compromiso">
+          </div>
+        <div class="mb-3 mt-3">
+            <label class="form-label">Descripcion:</label>
+            <textarea class="form-control" rows="5" id="txtdesccc"></textarea>
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Profesionales evaluados:</label>
+            <!-- <input list="myselectbuscarc">
+            <datalist id="myselectbuscarc">  -->
+            <select id="txtdoccompc" class="form-select">
+              <option value=""></option>
+            </select>
+            </datalist>
+
+          </div>
+        <p></p>
+        <button type="submit" id="btn-registrarC" class="btn btn-primary"> <i class="fas fa-folder-open"></i> Registrar</button>
+        <button type="submit" id="btn-actualizarC" class="btn btn-success"> <i class="fas fa-angle-double-up"></i> Actualizar</button>
+      </div>
+    </form>
+      <script src="../controlador/crearcompromisos.js"></script>
+</body>
+</html>

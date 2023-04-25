@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://bootswatch.com/5/minty/bootstrap.min.css">
+    <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="../../node_modules/@fortawesome/fontawesome-free/css/all.css">
+    <title>Registrar</title>
+</head>
+<body>
+    <header>
+      <img alt="Centro para la Industria de la Comunicación Gráfica" height="172px; " id="Header1_headerimg" src="img\logo cenigraf.jpg" style="display: block" width="500px; ">
+        <h1>Crear nuevos usuarios</h1>
+    </header>
+    <form>
+      <div class="container">
+        <div class="mb-3 mt-3">
+          <label for="text" class="form-label">Nombre:</label>
+          <input type="text" class="form-control" id="txtnombreu" placeholder="Ingrese los nombres del Instructor">
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Apellido:</label>
+          <input type="text" class="form-control" id="txtapellidou" placeholder="Ingrese los apellidos del Instructor">
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Rol:</label>
+            <select class="form-select" id="txtrolu">
+                <option value="Admin">Admin</option>
+                <option value="Invitado">Invitado</option>
+            </select>
+          </div>
+        <div class="mb-3">
+            <label class="form-label">Correo:</label>
+            <input type="email" class="form-control" id="txtcorreou" placeholder="Ingrese el correo del instructor">
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Contraseña:</label>
+            <input type="password" class="form-control" id="txtpasswordu" placeholder="Ingrese el correo del instructor">
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Nombre de usuario:</label>
+            <input type="text" class="form-control" id="txtusernameu" placeholder="Ingrese el nombre de usuario">
+        </div>
+        
+        <button type="submit" id="btnregistrar-usuarios" class="btn btn-primary"><i class="fas fa-folder-open"></i> Registrar</button>
+      </div>
+    </form>
+      <script src="../controlador/crearusuarioc.js"></script>
+</body>
+</html>
