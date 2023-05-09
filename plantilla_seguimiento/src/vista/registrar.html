@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://bootswatch.com/5/minty/bootstrap.min.css">
+    <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="../../node_modules/@fortawesome/fontawesome-free/css/all.css">
+    <title>Registro Instructores</title>
+</head>
+<body>
+    <header>
+      <img alt="Centro para la Industria de la Comunicación Gráfica" height="172px; " id="Header1_headerimg" src="img\logo cenigraf.jpg" style="display: block" width="500px; ">
+        <h1>Crear Registros Instructores</h1>
+    </header>
+    <form action="">
+      <div class="container">
+        <div class="mb-3 mt-3">
+          <label for="text" class="form-label">Nombres y Apellidos Instructor:</label>
+          <input type="text" class="form-control" id="txtninstructor" placeholder="Ingrese Nombres y Apellidos Instructor" name="txtninstructor">
+        </div>
+        <div class="mb-3">
+            <label for="text" class="form-label">Tipo de Identificación:</label>
+            <select class="form-select" id="txttipoid">
+                <option>Cédula de Ciudadanía</option>
+                <option>Cédula de Extranjeria</option>
+                <option>Pasaporte</option>
+              </select>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Número de Identificación:</label>
+            <input type="number" class="form-control" id="txtdocumentoi" placeholder="Ingrese el Número Documento" name="txtdocumentoi">
+          </div>
+        <div class="mb-3">
+            <label class="form-label">Denominación Empleo:</label>
+            <input type="text" class="form-control" id="txtroli" placeholder="Ingrese Cargo Desempeñado" name="txtroli">
+          </div>
+        <div class="mb-3">
+            <label class="form-label">Correo:</label>
+            <input type="email" class="form-control" id="txtcorreoi" placeholder="Ingrese Email" name="txtcorreoi">
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Código:</label>
+            <input type="number" class="form-control" id="txtcodigoi" placeholder="Ingrese el Código de Empleo" name="txtcodigoi">
+          </div>
+        <div class="mb-3">
+            <label class="form-label">Grado:</label>
+            <input type="number" class="form-control" id="txtgradoi" placeholder="Ingrese el Grado" name="txtgradoi">
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Dependencia:</label>
+            <input type="text" class="form-control" id="txtdependenciai" placeholder="Ingrese Nombre Dependencia" name="txtdependenciai">
+        </div>
+        <div class="mb-3">
+                <label class="form-label">Profesional Evaluador (Si no corresponde seleccione 1):</label>
+                <!-- <input list="txtprofevc">
+                <datalist id="txtprofevc">  -->
+                <select id="txtprofev" class="form-select">
+                  <option value=""></option>
+                </select>
+                </datalist> 
+              </div>
+              <div class="mb-3">
+                <label class="form-label">Evaluador Comisionado (Si no corresponde seleccione 1):</label>
+                <!-- <input list="txtprofev1">
+                <datalist id="txtprofev1">  -->
+                <select id="txtprofevcom" class="form-select">
+                  <option value=""></option>
+                </select>
+                </datalist> 
+
+              </div>
+        <button type="submit" id="btnregistrar" class="btn btn-primary"><i class="fas fa-folder-open"></i> Registrar</button>
+      </div>
+      </form>
+      <script src="../controlador/cregistrar.js"></script>
+    
+</body>
+</html>
